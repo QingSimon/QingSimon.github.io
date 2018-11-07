@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vslam on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/vslam/</link>
+    <description>Recent content in Vslam on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 29 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/vslam/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>VINS-Mono前端特征点跟踪</title>
+      <link>https://qingsimon.github.io/post/2018-09-29-vins-mono%E5%89%8D%E7%AB%AF%E7%89%B9%E5%BE%81%E7%82%B9%E8%B7%9F%E8%B8%AA/</link>
+      <pubDate>Sat, 29 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-09-29-vins-mono%E5%89%8D%E7%AB%AF%E7%89%B9%E5%BE%81%E7%82%B9%E8%B7%9F%E8%B8%AA/</guid>
+      <description>VINS-Mono前端概述 VINS-Mono将前端封装为一个ROS节点feature_tracker，该节点订阅相机图像话题数据后，提取特征</description>
+    </item>
+    
+  </channel>
+</rss>

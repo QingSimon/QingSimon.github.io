@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>高精度地图 on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</link>
+    <description>Recent content in 高精度地图 on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>slam相关资源汇总</title>
+      <link>https://qingsimon.github.io/post/2018-09-26-slam%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-09-26-slam%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</guid>
+      <description>徐尚-博客园 各种开源vSLAM开源代码解读以及一些相关方面的笔记，其中关于VINS-Mono的一系列解读挺不错。 VINS-Mono源码解析</description>
+    </item>
+    
+    <item>
+      <title>自动驾驶相关资源汇总</title>
+      <link>https://qingsimon.github.io/post/2018-09-26-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-09-26-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</guid>
+      <description>优达学成与百度合作的自动驾驶入门课程，基于Apollo比较全面地介绍了自动驾驶 无人车、自动驾驶相关文章整理 无人驾驶干货铺 无人驾驶入门&amp;nda</description>
+    </item>
+    
+    <item>
+      <title>高精度地图HD map</title>
+      <link>https://qingsimon.github.io/post/2018-09-26-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEhd-map/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-09-26-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEhd-map/</guid>
+      <description>高精度地图概述 高精度地图（HD map）是相对于常用的普通电子导航地图而言的，具有高精度、实时更新等特点。高精度地图不仅有高精度的坐标，同时还</description>
+    </item>
+    
+    <item>
+      <title>自动驾驶相关公司整理</title>
+      <link>https://qingsimon.github.io/post/2018-09-25-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</link>
+      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-09-25-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</guid>
+      <description>自动驾驶相关公司： 图片来源Segmenting the Autonomous Vehicle Value Chain: A Look at Who is in the “Driverless&amp;rdquo; Seat 自动驾驶专利相关数量： 图片来源h</description>
+    </item>
+    
+  </channel>
+</rss>

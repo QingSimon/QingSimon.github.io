@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Semantic Slam on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/categories/semantic-slam/</link>
+    <description>Recent content in Semantic Slam on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 11 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/categories/semantic-slam/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>semantic SLAM</title>
+      <link>https://qingsimon.github.io/post/2018-10-11-semantic-slam/</link>
+      <pubDate>Thu, 11 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-10-11-semantic-slam/</guid>
+      <description>路游侠的博客 路游侠的博客里有一些关于语义SLAM数据关联的文章。 语义SLAM基础与论文解析 Semantic SLAM 文章收集 语义SLAM最新论文主要创新点整理 [论</description>
+    </item>
+    
+  </channel>
+</rss>

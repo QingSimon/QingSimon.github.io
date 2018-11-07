@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/categories/</link>
+    <description>Recent content in Categories on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+	<atom:link href="https://qingsimon.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Semantic Slam</title>
+      <link>https://qingsimon.github.io/categories/semantic-slam/</link>
+      <pubDate>Thu, 11 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/categories/semantic-slam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sensor Fusion</title>
+      <link>https://qingsimon.github.io/categories/sensor-fusion/</link>
+      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/categories/sensor-fusion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Slam</title>
+      <link>https://qingsimon.github.io/categories/slam/</link>
+      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/categories/slam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vins Mono</title>
+      <link>https://qingsimon.github.io/categories/vins-mono/</link>
+      <pubDate>Sat, 29 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/categories/vins-mono/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>自动驾驶</title>
+      <link>https://qingsimon.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>高精度地图</title>
+      <link>https://qingsimon.github.io/categories/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/categories/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

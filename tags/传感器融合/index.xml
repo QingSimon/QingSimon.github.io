@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>传感器融合 on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/</link>
+    <description>Recent content in 传感器融合 on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 12 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>自动驾驶中的传感器融合</title>
+      <link>https://qingsimon.github.io/post/2018-10-12-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/</link>
+      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-10-12-%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/</guid>
+      <description>多传感器时间同步 Momenta Paper Reading：传感器网络的时间同步 多传感器空间同步 多传感器后融合 后融合是较为常用的融合方式，可以理解为松耦合，相对简单</description>
+    </item>
+    
+  </channel>
+</rss>

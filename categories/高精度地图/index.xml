@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>高精度地图 on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/categories/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</link>
+    <description>Recent content in 高精度地图 on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 26 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/categories/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>高精度地图HD map</title>
+      <link>https://qingsimon.github.io/post/2018-09-26-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEhd-map/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-09-26-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEhd-map/</guid>
+      <description>高精度地图概述 高精度地图（HD map）是相对于常用的普通电子导航地图而言的，具有高精度、实时更新等特点。高精度地图不仅有高精度的坐标，同时还</description>
+    </item>
+    
+  </channel>
+</rss>
