@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VINS-Mono（二）vins_estimator - 伟锅的博客</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="QingSimon" />
+  <meta name="description" content="IMU预积分 关于IMU预积分的详细内容可参考VINS-Mono详解。 VINS-Mono后端 VINS-Mono将VIO和后端封装为一个ROS节" />
+
+  <meta name="keywords" content="weiguo, 伟锅, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.49.1" />
+
+
+<link rel="canonical" href="https://qingsimon.github.io/post/2018-12-10-vins-mono%E4%BA%8Cvins_estimator/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="VINS-Mono（二）vins_estimator" />
+<meta property="og:description" content="IMU预积分 关于IMU预积分的详细内容可参考VINS-Mono详解。 VINS-Mono后端 VINS-Mono将VIO和后端封装为一个ROS节" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qingsimon.github.io/post/2018-12-10-vins-mono%E4%BA%8Cvins_estimator/" /><meta property="article:published_time" content="2018-12-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-12-11T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="VINS-Mono（二）vins_estimator">
+<meta itemprop="description" content="IMU预积分 关于IMU预积分的详细内容可参考VINS-Mono详解。 VINS-Mono后端 VINS-Mono将VIO和后端封装为一个ROS节">
+
+
+<meta itemprop="datePublished" content="2018-12-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3464">
+
+
+
+<meta itemprop="keywords" content="vSLAM,VIO,VINS-Mono," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VINS-Mono（二）vins_estimator"/>
+<meta name="twitter:description" content="IMU预积分 关于IMU预积分的详细内容可参考VINS-Mono详解。 VINS-Mono后端 VINS-Mono将VIO和后端封装为一个ROS节"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">weiguo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+              <i class="iconfont icon-new-window"></i>
+            </a>
+          
+        
+      </li>
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      weiguo
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+            <i class="iconfont icon-new-window"></i>
+            </a>
+          
+
+        
+
+      </li>
+    
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">VINS-Mono（二）vins_estimator</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-12-10 </span>
+        <div class="post-category">
+            <a href="https://qingsimon.github.io/categories/vins-mono/"> VINS-Mono </a>
+            
+          </div>
+        <span class="more-meta"> 3464 words </span>
+          <span class="more-meta"> 7 min read </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#imu预积分">IMU预积分</a></li>
+<li><a href="#vins-mono后端">VINS-Mono后端</a></li>
+<li><a href="#入口函数main">入口函数main</a>
+<ul>
+<li><a href="#imu-callback">imu_callback()</a></li>
+<li><a href="#feature-callback">feature_callback()</a></li>
+<li><a href="#raw-image-callback">raw_image_callback()</a></li>
+</ul></li>
+<li><a href="#多线程处理">多线程处理</a>
+<ul>
+<li><a href="#measurement-process线程">measurement_process线程</a>
+<ul>
+<li><a href="#getmeasurements-函数">getMeasurements()函数</a></li>
+<li><a href="#send-imu-函数">send_imu()函数</a></li>
+<li><a href="#estimator-processimu-函数">Estimator::processIMU()函数</a>
+<ul>
+<li><a href="#integrationbase-push-back">IntegrationBase::push_back()</a>
+<ul>
+<li><a href="#integrationbase-propagate">IntegrationBase::propagate()</a>
+<ul>
+<li><a href="#integrationbase-midpointintegration">IntegrationBase::midPointIntegration()</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#estimator-processimage-函数">Estimator::processImage()函数</a></li>
+</ul></li>
+<li><a href="#loop-detection线程">loop_detection线程</a></li>
+<li><a href="#pose-graph线程">pose_graph线程</a></li>
+</ul></li>
+<li><a href="#参考资料">参考资料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h1 id="imu预积分">IMU预积分</h1>
+
+<p>关于IMU预积分的详细内容可参考<a href="https://github.com/QingSimon/VINS-Mono-code-annotation/blob/master/VINS-Mono%E8%AF%A6%E8%A7%A3.pdf" target="_blank">VINS-Mono详解</a>。</p>
+
+<h1 id="vins-mono后端">VINS-Mono后端</h1>
+
+<p>VINS-Mono将VIO和后端封装为一个ROS节点estimator_node，IMU预积分、松耦合初始化、local BA和回环检测都是在vins_estimator中完成的，后端节点的实现在vins_estimator目录下的src中。vins_estimator代码目录：</p>
+
+<ul>
+<li>vins_estimator
+
+<ul>
+<li>src
+
+<ul>
+<li>factor 计算IMU和视觉观测残差，涉及到ceres优化和雅可比矩阵的计算。</li>
+<li>initial VIO的松耦合初始化。</li>
+<li>loop-closure 回环检测，使用了DBOW2作者的一个Demo</li>
+<li>utility 实现了四元数转换、显示等功能。
+
+<ul>
+<li>utility.h</li>
+<li>utility.cpp 实现了一些四元数和旋转矩阵之间的转换</li>
+<li>tic_toc.h</li>
+<li>CameraPoseVisualization.h</li>
+<li>CameraPoseVisualization.cpp 定义了CameraPoseVisualization类</li>
+<li>visualization.h</li>
+<li>visualization.cpp 用于在vins_estimator节点中注册一些发布器，发布数据供Rviz显示</li>
+</ul></li>
+<li>parameters.h</li>
+<li>parameters.cpp 从外部读取配置参数，而且parameters.h中也指定了一些参数</li>
+<li>feature_manager.h</li>
+<li>feature_manager.cpp 主要通过定义FeatureManager类，封装了特征点管理，三角化以及关键帧相关的操作。</li>
+<li>estimator.h</li>
+<li>estimator.cpp 实现了estimator类，封装了预积分、松耦合初始化和非线性优化等操作</li>
+<li>estimator_node.cpp（main函数所在文件） 开启3个线程：measurement_process、loop_detection和pose_graph。</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1 id="入口函数main">入口函数main</h1>
+
+<p>后端入口函数为estimator_node.cpp中的main()函数。在main()函数中，创建名为“vins_estimator”的节点。</p>
+
+<p>接着定义三个订阅器sub_imu、sub_image和sub_raw_imag：</p>
+
+<ol>
+<li><p>订阅器sub_imu从话题IMU_TOPIC中订阅原始IMU数据，回调函数为imu_callback()。</p></li>
+
+<li><p>订阅器sub_image从话题&rdquo;/feature_tracker/feature&rdquo;中订阅feature_tracker节点跟踪的特征点数据，回调函数为feature_callback()。</p></li>
+
+<li><p>订阅器sub_raw_imag从话题IMAGE_TOPIC中订阅相机图像数据，回调函数为raw_image_callback()。</p></li>
+</ol>
+
+<table>
+  <tr>
+    <th></th>
+    <th>name</th>
+    <th>topic</th>
+    <th>type</th>
+    <th>消息内容</th>
+  </tr>
+  <tr>
+    <td>subscriber</td>
+    <td>sub_imu</td>
+    <td>IMU_TOPIC</td>
+    <td></td>
+    <td>原始IMU数据</td>
+  </tr>
+  <tr>
+    <td>subscriber</td>
+    <td>sub_image</td>
+    <td>"/feature_tracker/<br>feature"</td>
+    <td>sensor_msgs::<br>PointCloud</td>
+    <td>feature_tracker节点跟踪的特征点数据</td>
+  </tr>
+  <tr>
+    <td>subscriber</td>
+    <td>sub_raw_image</td>
+    <td>IMAGE_TOPIC</td>
+    <td>sensor_msgs::Image</td>
+    <td>相机图像数据</td>
+  </tr>
+</table>
+
+<h2 id="imu-callback">imu_callback()</h2>
+
+<p>imu_callback()是订阅原始IMU数据的回调函数，首先将IMU数据的指针保存到imu_buf中，然后执行con.notify_one()，唤醒作用于process线程中的获取观测值数据的函数。每得到一帧IMU数据，就调用estimator_node.cpp中定义的predict()函数，通过中值积分计算出标称状态下本体坐标系相对于世界坐标系的位移p、速度v和旋转q。并通过utility/visualization.cpp中定义的发布器来发布p、v、q，似乎是为了用于Rviz显示。</p>
+
+<h2 id="feature-callback">feature_callback()</h2>
+
+<p>feature_callback()是订阅feature_tracker节点所跟踪特征点的回调函数，该函数的功能是：将feature_tracker节点发布的特征点数据保存到feature_buf中去。</p>
+
+<h2 id="raw-image-callback">raw_image_callback()</h2>
+
+<p>raw_image_callback()是订阅相机图像数据的回调函数，这里订阅相机图像数据是为了回环检测服务的,该回调函数的功能就是：若开启回环闭合模块，则将图像数据保存到一个队列（queue）image_buf中去。</p>
+
+<h1 id="多线程处理">多线程处理</h1>
+
+<p><strong>vins_estimator中开启了3个线程：</strong></p>
+
+<ol>
+<li><p>measurement_process线程。线程函数为process(),该函数实现了视觉惯性里程计，包括IMU预积分、松耦合初始化和local BA；</p></li>
+
+<li><p>loop_detection线程。线程函数为process_loop_detection()，该函数完成回环检测；</p></li>
+
+<li><p>pose_graph线程。线程函数为process_pose_graph，该函数完成全局优化。</p></li>
+</ol>
+
+<p>其中loop_detection和pose_graph线程受配置参数LOOP_CLOSURE的控制。如果LOOP_CLOSURE置0，则不会创建loop_detection和pose_graph线程。</p>
+
+<h2 id="measurement-process线程">measurement_process线程</h2>
+
+<p>measurement_process的线程函数是estimator_node.cpp中定义的process()函数。在process()函数中，首先调用getMeasurements()函数，从缓存imu_buf和feature_buf中读入IMU数据和图像特征点数据。</p>
+
+<h3 id="getmeasurements-函数">getMeasurements()函数</h3>
+
+<p>getMeasurements()函数，从imu_buf和feature_buf中读入IMU数据和图像特征点数据，并在该函数中对IMU数据和图像特征点数据进行初步的时间戳对齐。
+初步的时间戳对齐需要满足两个条件：
+1. IMU缓存队列中队尾数据的时间戳，要晚于图像特征点数据缓存队列中队首数据的时间戳；
+2. IMU缓存队列中队首数据的时间戳，要早于图像特征点数据缓存队列中队首数据的时间戳。</p>
+
+<p>时间戳初步对齐的结果是：一帧图像特征点数据与多帧IMU数据对应，这些IMU数据为：该帧图像与上一帧图像的时间间隔内的所有IMU数据。这里只保证了相邻的feature数据之间有完整的IMU数据。每一组IMU数据和对应的图像特征点数据组成measurement，多组measurement组成measurements，作为getMeasurements()的返回值。</p>
+
+<p>值得一提的是，在获得观测数据的过程中，使用了互斥锁和条件等待的功能。当回调函数imu_callback()或者feature_callback()从话题消息中接收数据时，互斥锁会锁住imu_buf或者feature_buf，此时getMeasurements()就无法从imu_buf、feature_buf中获取观测数据。当imu_callback()或者feature_callback()接收话题数据完成时，条件等待就会唤醒getMeasurements()从imu_buf、feature_buf中读取观测数据，在读取过程中两个回调函数imu_callback()和feature_callback()是无法接收数据的。当getMeasurements()提取完成后，回调函数就可以继续接收话题消息数据。</p>
+
+<h3 id="send-imu-函数">send_imu()函数</h3>
+
+<p>使用for循环对measurements中的measurement进行遍历，对于measurement中的IMU数据imu_msg，通过一个for循环进行遍历，对每一帧IMU数据调用send_imu()函数进行预积分：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">//遍历各帧imu数据，进行预积分
+</span><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">imu_msg</span> <span class="p">:</span> <span class="n">measurement</span><span class="p">.</span><span class="n">first</span><span class="p">)</span>
+    <span class="n">send_imu</span><span class="p">(</span><span class="n">imu_msg</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>在send_imu()函数中调用Estimator::processIMU()函数进行处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">estimator</span><span class="p">.</span><span class="n">processIMU</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">Vector3d</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">),</span> <span class="n">Vector3d</span><span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">,</span> <span class="n">rz</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="estimator-processimu-函数">Estimator::processIMU()函数</h3>
+
+<p>在Estimator::processIMU()函数中调用IntegrationBase::push_back()函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">pre_integrations</span><span class="p">[</span><span class="n">frame_count</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">push_back</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">linear_acceleration</span><span class="p">,</span> <span class="n">angular_velocity</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="integrationbase-push-back">IntegrationBase::push_back()</h4>
+
+<p>每一帧IMU数据都对应一个预积分，对于每一帧IMU数据，在IntegrationBase::push_back()函数中调用IntegrationBase::propagate()函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="kt">double</span> <span class="n">dt</span><span class="p">,</span> <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="o">&amp;</span><span class="n">acc</span><span class="p">,</span> <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="o">&amp;</span><span class="n">gyr</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">dt_buf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
+    <span class="n">acc_buf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">acc</span><span class="p">);</span>
+    <span class="n">gyr_buf</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">gyr</span><span class="p">);</span>
+    <span class="n">propagate</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">gyr</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h5 id="integrationbase-propagate">IntegrationBase::propagate()</h5>
+
+<p>在IntegrationBase::propagate()函数中，调用IntegrationBase::midPointIntegration()函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">midPointIntegration</span><span class="p">(</span><span class="n">_dt</span><span class="p">,</span> <span class="n">acc_0</span><span class="p">,</span> <span class="n">gyr_0</span><span class="p">,</span> <span class="n">_acc_1</span><span class="p">,</span> <span class="n">_gyr_1</span><span class="p">,</span> <span class="n">delta_p</span><span class="p">,</span> <span class="n">delta_q</span><span class="p">,</span> <span class="n">delta_v</span><span class="p">,</span>
+                    <span class="n">linearized_ba</span><span class="p">,</span> <span class="n">linearized_bg</span><span class="p">,</span>
+                    <span class="n">result_delta_p</span><span class="p">,</span> <span class="n">result_delta_q</span><span class="p">,</span> <span class="n">result_delta_v</span><span class="p">,</span>
+                    <span class="n">result_linearized_ba</span><span class="p">,</span> <span class="n">result_linearized_bg</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h6 id="integrationbase-midpointintegration">IntegrationBase::midPointIntegration()</h6>
+
+<p>计算误差状态的转移矩阵F和噪声系数矩阵V，更新雅可比矩阵jacobian和协方差矩阵covariance</p>
+
+<h3 id="estimator-processimage-函数">Estimator::processImage()函数</h3>
+
+<p>对于measurement中的图像特征点数据img_msg，先将其存到一个关联容器map中，然后调用Estimator::processImage()函数进行处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">estimator</span><span class="p">.</span><span class="n">processImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">img_msg</span><span class="o">-&gt;</span><span class="n">header</span><span class="p">);</span> <span class="c1">// 处理图像特征点数据
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="loop-detection线程">loop_detection线程</h2>
+
+<h2 id="pose-graph线程">pose_graph线程</h2>
+
+<h1 id="参考资料">参考资料</h1>
+
+<ol>
+<li><a href="https://blog.csdn.net/u012871872/article/details/78128087" target="_blank">VINS-Mono 代码解读</a></li>
+<li><a href="https://blog.csdn.net/wangshuailpp/article/details/78461171" target="_blank">VINS技术路线与代码详解</a></li>
+<li><a href="https://www.zybuluo.com/Xiaobuyi/note/866099" target="_blank">VINS-Mono代码分析总结</a></li>
+<li><a href="http://mapstec.com/2018/09/08/VIO/" target="_blank">VINS-Mobile版源码阅读</a></li>
+<li><a href="https://blog.csdn.net/q597967420/article/details/76099429" target="_blank">VINS-Mono源码解析（三）后端: IMU预积分</a></li>
+<li><a href="https://www.cnblogs.com/shang-slam/p/7144468.html" target="_blank">VINS（七）estimator_node 数据对齐 imu预积分 vision</a></li>
+<li><a href="http://docs.ros.org/kinetic/api/sensor_msgs/html/msg/PointCloud.html" target="_blank">sensor_msgs/PointCloud Message</a></li>
+<li><a href="http://docs.ros.org/kinetic/api/sensor_msgs/html/msg/Image.html" target="_blank">sensor_msgs/Image Message</a></li>
+<li><a href="http://docs.ros.org/kinetic/api/sensor_msgs/html/msg/Imu.html" target="_blank">sensor_msgs/Imu Message</a></li>
+</ol>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">QingSimon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-12-11</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content">伟锅原创，转载请注明作者和出处！</span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://qingsimon.github.io/tags/vslam/">vSLAM</a>
+          <a href="https://qingsimon.github.io/tags/vio/">VIO</a>
+          <a href="https://qingsimon.github.io/tags/vins-mono/">VINS-Mono</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2018-12-17-android%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Android开发学习</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/2018-10-12-slam-%E7%8E%B0%E5%9C%A8-%E6%9C%AA%E6%9D%A5-%E5%92%8C-%E9%B2%81%E6%A3%92%E6%84%9F%E7%9F%A5%E6%97%B6%E4%BB%A3/">
+            <span class="next-text nav-default">SLAM：现在，未来和鲁棒感知时代</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/QingSimon" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://qingsimon.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+  </div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">
+        伟锅
+        
+      </span></span>
+
+  
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VINS-Mono（一）特征点提取与光流跟踪 - 伟锅的博客</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="QingSimon" />
+  <meta name="description" content="VINS-Mono前端概述 VINS-Mono将前端封装为一个ROS节点feature_tracker_node，该节点订阅相机图像话题数据后" />
+
+  <meta name="keywords" content="weiguo, 伟锅, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.49.1" />
+
+
+<link rel="canonical" href="https://qingsimon.github.io/post/2018-09-29-vins-mono%E4%B8%80%E7%89%B9%E5%BE%81%E7%82%B9%E6%8F%90%E5%8F%96%E4%B8%8E%E5%85%89%E6%B5%81%E8%B7%9F%E8%B8%AA/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="VINS-Mono（一）特征点提取与光流跟踪" />
+<meta property="og:description" content="VINS-Mono前端概述 VINS-Mono将前端封装为一个ROS节点feature_tracker_node，该节点订阅相机图像话题数据后" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qingsimon.github.io/post/2018-09-29-vins-mono%E4%B8%80%E7%89%B9%E5%BE%81%E7%82%B9%E6%8F%90%E5%8F%96%E4%B8%8E%E5%85%89%E6%B5%81%E8%B7%9F%E8%B8%AA/" /><meta property="article:published_time" content="2018-09-29T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-09-30T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="VINS-Mono（一）特征点提取与光流跟踪">
+<meta itemprop="description" content="VINS-Mono前端概述 VINS-Mono将前端封装为一个ROS节点feature_tracker_node，该节点订阅相机图像话题数据后">
+
+
+<meta itemprop="datePublished" content="2018-09-29T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-09-29T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3787">
+
+
+
+<meta itemprop="keywords" content="vSLAM,VIO,VINS-Mono," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VINS-Mono（一）特征点提取与光流跟踪"/>
+<meta name="twitter:description" content="VINS-Mono前端概述 VINS-Mono将前端封装为一个ROS节点feature_tracker_node，该节点订阅相机图像话题数据后"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">weiguo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+              <i class="iconfont icon-new-window"></i>
+            </a>
+          
+        
+      </li>
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      weiguo
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+            <i class="iconfont icon-new-window"></i>
+            </a>
+          
+
+        
+
+      </li>
+    
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">VINS-Mono（一）特征点提取与光流跟踪</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-29 </span>
+        <div class="post-category">
+            <a href="https://qingsimon.github.io/categories/vins-mono/"> VINS-Mono </a>
+            
+          </div>
+        <span class="more-meta"> 3787 words </span>
+          <span class="more-meta"> 8 min read </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#vins-mono前端概述">VINS-Mono前端概述</a></li>
+<li><a href="#入口函数main">入口函数main()</a></li>
+<li><a href="#回调函数img-callback">回调函数img_callback()</a>
+<ul>
+<li><a href="#发布频率控制">发布频率控制</a></li>
+<li><a href="#特征点提取与光流跟踪">特征点提取与光流跟踪</a>
+<ul>
+<li><a href="#单目处理逻辑">单目处理逻辑</a></li>
+<li><a href="#双目处理逻辑">双目处理逻辑</a></li>
+</ul></li>
+<li><a href="#featuretracker-readimage-函数">FeatureTracker::readImage()函数</a></li>
+<li><a href="#更新特征点id">更新特征点id</a></li>
+</ul></li>
+<li><a href="#参考资料">参考资料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h1 id="vins-mono前端概述">VINS-Mono前端概述</h1>
+
+<p>VINS-Mono将前端封装为一个ROS节点feature_tracker_node，该节点订阅相机图像话题数据后，提取特征点（cv::GoodFeatureToTrack()检测的角点），然后用KLT光流进行特征点跟踪。feature_tracker节点将跟踪的特征点作为话题进行发布，供后端ROS节点使用。同时feature_tracker_node还会发布标记了特征点的图片，可供Rviz显示以供调试。</p>
+
+<p>前端节点的实现在feature_tracker目录下的src中，src里共有3个头文件和3个源文件：</p>
+
+<ul>
+<li>tic_toc.h中是作者自己封装的一个类TIC_TOC，用来计时；<br /></li>
+<li>parameters.h和parameters.cpp处理前端中需要用到的一些参数；<br /></li>
+<li>feature_tracker.h和feature_tracker.cpp实现了一个类FeatureTracker，用来完成特征点提取和特征点跟踪等主要功能；<br /></li>
+<li>feature_tracker_node.cpp构造了一个ROS节点feature_tracker_node，主要调用FeatureTracker类来实现前端功能。</li>
+</ul>
+
+<h1 id="入口函数main">入口函数main()</h1>
+
+<p>前端的入口函数为feature_tracker_node.cpp中的main()函数。在main()函数中，首先创建名为“feature_tracker”的节点，然后调用parameters.cpp中定义的函数readParameters()，读取特征点提取和跟踪需要用到的一些配置参数。</p>
+
+<p>在feature_tracker_node.cpp的开头，main()函数之外，会创建由FeatureTracker类的实例组成的数组trackerData[NUM_OF_CAM]，其中NUM_OF_CAM为相机的个数，这意味这每一个相机都有一个FeatureTracker的实例，每个相机的FeatureTracker实例通过调用成员函数FeatureTracker::readIntrinsicParameter()，来读取每个相机各自对应的内参。</p>
+
+<p>特别的，如果相机是鱼眼相机，需要读取FISHEYE_MASK，存到相机FeatureTracker的实例的成员变量fisheye_mask中，它会在后续操作中被用来去除边缘噪点。</p>
+
+<p>接着定义一个订阅器和两个发布器。订阅器sub_img从话题IMAGE_TOPIC中订阅相机图像数据，回调函数为img_callback()。发布器pub_img在名为feature的话题下发布一条类型为sensor_msgs::PointCloud的消息，该话题消息为从相机图像中跟踪的特征点。发布器pub_match在名为feature_img的话题下发布一条类型为sensor_msgs::Image的消息，该话题消息为标记出了特征点的图像。</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>name</th>
+<th>topic</th>
+<th>type</th>
+<th>消息内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>subscriber</td>
+<td>sub_img</td>
+<td>IMAGE_TOPIC</td>
+<td>sensor_msgs::Image</td>
+<td>相机图像数据</td>
+</tr>
+
+<tr>
+<td>publisher</td>
+<td>pub_img</td>
+<td>feature</td>
+<td>sensor_msgs::PointCloud</td>
+<td>跟踪的特征点</td>
+</tr>
+
+<tr>
+<td>publisher</td>
+<td>pub_match</td>
+<td>feature_img</td>
+<td>sensor_msgs::Image</td>
+<td>标记出了特征点的图像</td>
+</tr>
+</tbody>
+</table>
+
+<p>接着便循环等待回调函数，直至程序退出。</p>
+
+<h1 id="回调函数img-callback">回调函数img_callback()</h1>
+
+<p>前端的功能主要就在img_callback()，每当接收到从IMAGE_TOPIC话题订阅的数据，就会进入回调函数img_callback()进行处理。</p>
+
+<h2 id="发布频率控制">发布频率控制</h2>
+
+<p>并不是每处理一帧图像，都将特征点检测跟踪结果发布出去。数据发布频率由配置参数FREQ给定，通过PUB_THIS_FRAME控制是否发布当前帧的检测跟踪数据，将数据平均发布频率稳定在FREQ：如果当前统计时间内的平均数据发布频率快于FREQ，则将PUB_THIS_FRAME置为false，只进行特征点的跟踪，但不发布当前帧的数据；否则，将PUB_THIS_FRAME置为true，进行特征点的跟踪且发布当前帧的数据。</p>
+
+<h2 id="特征点提取与光流跟踪">特征点提取与光流跟踪</h2>
+
+<p>这一部分代码可处理单目相机和双目相机两种情况。</p>
+
+<h3 id="单目处理逻辑">单目处理逻辑</h3>
+
+<p>如果是单目相机（双目开关STEREO_TRACK为0），则只有一个相机：相机0。调用FeatureTracker::readImage()函数，读取单目图像数据，然后在readImage()函数中，对前一帧图像中的特征点进行金字塔光流跟踪，必要时检测新的特征点对特征点数量进行补充。</p>
+
+<h3 id="双目处理逻辑">双目处理逻辑</h3>
+
+<p>如果是双目相机（双目开关STEREO_TRACK为1），则有两个相机：相机0和相机1。对于相机0：在readImage()函数中，前后两帧图像之间进行金字塔光流跟踪，必要时在当前帧中检测新特征点以补充特征点数量。对于相机1：如果需要发布当前帧的数据（PUB_THIS_FRAME为true），且相机0的前一帧图像中特征点数量不为空，则直接在回调函数img_callback()中，相机1的当前帧图像对相机0的前一帧图像进行金字塔光流跟踪，这里光流跟踪的处理过程与单目模式下的类似，只是不会补充新的特征点；否则不需要进一步处理。</p>
+
+<h2 id="featuretracker-readimage-函数">FeatureTracker::readImage()函数</h2>
+
+<p>FeatureTracker类中的主要处理函数就是readImage()，在这个函数中涉及到几个变量名，需要对它们的含义进行特别说明（以下说明针对单目模式，其含义并不适用于双目模式），否则根据变量名称去揣测其含义会出错。</p>
+
+<p>图像数据变量：</p>
+
+<ul>
+<li>prev_img：  上一次发布数据时对应的图像帧</li>
+<li>cur_img：   光流跟踪的前一帧图像，而不是“当前帧”</li>
+<li>forw_img：  光流跟踪的后一帧图像，真正意义上的“当前帧”<br /></li>
+</ul>
+
+<p>特征点数据变量：</p>
+
+<ul>
+<li>prev_pts：  上一次发布的，且能够被当前帧（forw）跟踪到的特征点</li>
+<li>cur_pts：   在光流跟踪的前一帧图像中，能够被当前帧（forw）跟踪到的特征点</li>
+<li>forw_pts：  光流跟踪的后一帧图像，即当前帧中的特征点（除了跟踪到的特征点，可能还包含新检测的特征点）<br /></li>
+</ul>
+
+<p>FeatureTracker::readImage()函数的处理流程为：</p>
+
+<ol>
+<li><p>如果控制参数EQUALIZE为true，调用cv::createCLAHE对图像进行自适应直方图均衡处理；</p></li>
+
+<li><p>调用cv::calcOpticalFlowPyrLK()对前一帧的特征点cur_pts进行金字塔光流跟踪，得到forw_pts。status标记了cur_pts中各个特征点的跟踪状态，根据status将跟踪失败的特征点从prev_pts、cur_pts和forw_pts中剔除，而且在记录特征点id的ids，和记录特征点被跟踪次数的track_cnt中，也要把这些跟踪失败的特征点对应位置的记录删除。被status标记为跟踪正常的特征点，在当前帧图像中的位置可能已经处于图像边界外了，这些特征点也应该被删除，删除操作同上。</p></li>
+
+<li><p>如果不需要发布当前帧的数据，则直接将当前帧forw的相关数据赋给上一帧cur，然后在这一步整个readImage的流程就结束了。</p></li>
+
+<li><p>如果需要发布当前帧的数据，先调用FeatureTracker::rejectWithF()函数，剔除outliers。具体方法为：调用cv::findFundamentalMat()对prev_pts和forw_pts计算F矩阵，通过F矩阵去除outliers。剩下的特征点track_cnt都加1。</p></li>
+
+<li><p>调用FeatureTracker::setMask()，通过设置一个mask，使跟踪的特征点在整幅图像中能够均匀分布，防止特征点扎堆。FeatureTracker::setMask()的具体操作为：对光流跟踪到的特征点forw_pts，按照被跟踪到的次数降序排列，然后按照降序遍历这些特征点。每选中一个特征点，在mask中将该点周围半径为MIN_DIST的区域设置为0，后面不再选取该区域内的特征点。这样会删去一些特征点，使得特征点分布得更加均匀，同时尽可能地保留被跟踪次数更多的特征点。</p></li>
+
+<li><p>由于光流跟踪到的特征点会减少，而且setMask()的处理过程中也会删除一些特征点，所以需要新检测一些特征点（只有需要发布数据时，才会检测新的特征点，否则只跟踪，不检测新的特征点）。具体操作为：调用cv::goodFeaturesToTrack()在mask中不为0的区域检测新的特征点，将特征点数量补充至指定数量。然后调用FeatureTracker::addPoints()，将新检测到的特征点到forw_pts中去，id初始化为-1，track_cnt初始化为1。</p></li>
+</ol>
+
+<h2 id="更新特征点id">更新特征点id</h2>
+
+<p>特征点id相当于特征点的身份证号，对数据关联（data association）至关重要。需要注意的是，更新特征点id的步骤被特意放到了回调函数img_callback()中，而不是FeatureTracker::readImage()函数内部。有一种说法是，n_id是FeatureTracker类的静态变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">static</span> <span class="kt">int</span> <span class="n">n_id</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>FeatureTracker类的多个实例对象会共享一个n_id，在readImage()函数内部更新特征点id的话，如果多个相机并行调用readImage()，它们都要去访问n_id并改变它的值，可能会产生问题。我有一个疑问：为什么会出现多个相机并行调用readImage()的情况，因为从源代码来说，可以保证多个相机的调用存在时序上的先后关系。</p>
+
+<h1 id="参考资料">参考资料</h1>
+
+<ol>
+<li><a href="https://blog.csdn.net/q597967420/article/details/76099425" target="_blank">VINS-Mono源码解析（二）前端：特征跟踪</a></li>
+</ol>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">QingSimon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-09-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content">伟锅原创，转载请注明作者和出处！</span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://qingsimon.github.io/tags/vslam/">vSLAM</a>
+          <a href="https://qingsimon.github.io/tags/vio/">VIO</a>
+          <a href="https://qingsimon.github.io/tags/vins-mono/">VINS-Mono</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2018-10-11-semantic-slam/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">semantic SLAM</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/2018-09-26-slam%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/">
+            <span class="next-text nav-default">slam相关资源汇总</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/QingSimon" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://qingsimon.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+  </div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">
+        伟锅
+        
+      </span></span>
+
+  
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
