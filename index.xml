@@ -24,6 +24,47 @@
     </item>
     
     <item>
+      <title>Android手机camera和IMU的标定</title>
+      <link>https://qingsimon.github.io/post/2018-12-28-android%E6%89%8B%E6%9C%BA%E7%9B%B8camera%E5%92%8Cimu%E7%9A%84%E6%A0%87%E5%AE%9A/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-12-28-android%E6%89%8B%E6%9C%BA%E7%9B%B8camera%E5%92%8Cimu%E7%9A%84%E6%A0%87%E5%AE%9A/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;实现流程&#34;&gt;实现流程&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;开发一个android端的app，运行在手机上，直接读取相机图像和IMU数据进行标定。这种方式，使用起来最方便，但是开发起来很操蛋。&lt;/li&gt;
+&lt;li&gt;在android手机上采集图像和IMU数据，记录下来，然后使用采集的数据，在PC端使用现有的标定工具进行标定。&lt;/li&gt;
+&lt;li&gt;android手机与安装了ros的PC机在局域网中进行通讯，android手机采集到的图像和IMU数据实时转换为ros的topic，在PC机中运行ros标定工具，订阅图像和IMU的topic数据，实现标定。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;单独标定&#34;&gt;单独标定&lt;/h1&gt;
+
+&lt;h2 id=&#34;相机标定&#34;&gt;相机标定&lt;/h2&gt;
+
+&lt;h2 id=&#34;imu标定&#34;&gt;IMU标定&lt;/h2&gt;
+
+&lt;h1 id=&#34;相机与imu联合标定&#34;&gt;相机与IMU联合标定&lt;/h1&gt;
+
+&lt;h2 id=&#34;开源标定工具&#34;&gt;开源标定工具&lt;/h2&gt;
+
+&lt;h3 id=&#34;kalibr&#34;&gt;kalibr&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ethz-asl/kalibr&#34;&gt;https://github.com/ethz-asl/kalibr&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://yq.aliyun.com/ziliao/429281&#34; target=&#34;_blank&#34;&gt;IMU-Camera 联合标定资料总结&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://wiki.ros.org/roslibjs/Tutorials/Publishing%20video%20and%20IMU%20data%20with%20roslibjs&#34; target=&#34;_blank&#34;&gt;This tutorial shows you how to use a mobile phone to publish video and IMU messages via roslibjs and rosbridge&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>Android开发学习</title>
       <link>https://qingsimon.github.io/post/2018-12-17-android%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Mon, 17 Dec 2018 00:00:00 +0000</pubDate>

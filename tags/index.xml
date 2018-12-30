@@ -6,7 +6,7 @@
     <description>Recent content in Tags on 伟锅的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 17 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qingsimon.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Android</title>
       <link>https://qingsimon.github.io/tags/android/</link>
-      <pubDate>Mon, 17 Dec 2018 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://qingsimon.github.io/tags/android/</guid>
       <description></description>
@@ -26,6 +26,15 @@
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://qingsimon.github.io/tags/autonomous-vehicle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Calibration</title>
+      <link>https://qingsimon.github.io/tags/calibration/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/tags/calibration/</guid>
       <description></description>
     </item>
     
@@ -98,6 +107,15 @@
       <pubDate>Mon, 10 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://qingsimon.github.io/tags/vslam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>传感器标定</title>
+      <link>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</guid>
       <description></description>
     </item>
     

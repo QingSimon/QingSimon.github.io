@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 伟锅的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 17 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qingsimon.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android手机camera和IMU的标定</title>
+      <link>https://qingsimon.github.io/post/2018-12-28-android%E6%89%8B%E6%9C%BA%E7%9B%B8camera%E5%92%8Cimu%E7%9A%84%E6%A0%87%E5%AE%9A/</link>
+      <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2018-12-28-android%E6%89%8B%E6%9C%BA%E7%9B%B8camera%E5%92%8Cimu%E7%9A%84%E6%A0%87%E5%AE%9A/</guid>
+      <description>实现流程 开发一个android端的app，运行在手机上，直接读取相机图像和IMU数据进行标定。这种方式，使用起来最方便，但是开发起来很操蛋。</description>
+    </item>
     
     <item>
       <title>Android开发学习</title>
