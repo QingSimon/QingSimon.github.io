@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>高精度地图 · 伟锅的博客</title>
+  <title>VINS-Mono（三）初始化 - 伟锅的博客</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -24,8 +24,9 @@
 
 <meta name="mobile-web-app-capable" content="yes">
 
-<meta name="author" content="伟锅" />
-  <meta name="description" content="伟锅的博客" />
+<meta name="author" content="QingSimon" />
+  <meta name="description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima" />
+
   <meta name="keywords" content="weiguo, 伟锅, blog" />
 
 
@@ -36,8 +37,7 @@
 <meta name="generator" content="Hugo 0.49.1" />
 
 
-<link rel="canonical" href="https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/" />
-<link href="https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/index.xml" rel="alternate" type="application/rss+xml" title="伟锅的博客" />
+<link rel="canonical" href="https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89%E5%88%9D%E5%A7%8B%E5%8C%96/" />
 
 
 
@@ -57,18 +57,26 @@
 
 
 
-<meta property="og:title" content="高精度地图" />
-<meta property="og:description" content="伟锅的博客" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/" />
-<meta property="og:updated_time" content="2018-09-26T00:00:00&#43;00:00"/>
+<meta property="og:title" content="VINS-Mono（三）初始化" />
+<meta property="og:description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89%E5%88%9D%E5%A7%8B%E5%8C%96/" /><meta property="article:published_time" content="2019-01-11T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-01-11T00:00:00&#43;00:00"/>
 
-<meta itemprop="name" content="高精度地图">
-<meta itemprop="description" content="伟锅的博客">
+<meta itemprop="name" content="VINS-Mono（三）初始化">
+<meta itemprop="description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima">
 
+
+<meta itemprop="datePublished" content="2019-01-11T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-11T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1095">
+
+
+
+<meta itemprop="keywords" content="vSLAM,VIO,VINS-Mono," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="高精度地图"/>
-<meta name="twitter:description" content="伟锅的博客"/>
+<meta name="twitter:title" content="VINS-Mono（三）初始化"/>
+<meta name="twitter:description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -300,72 +308,146 @@
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
-          
-
-<section id="archive" class="archive">
-  
+          <article class="post bg-white">
     
-      <div class="archive-title tag">
-        <h2 class="archive-name">Tag: 高精度地图</h2>
+    <header class="post-header">
+      <h1 class="post-title">VINS-Mono（三）初始化</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-11 </span>
+        <div class="post-category">
+            <a href="https://qingsimon.github.io/categories/vins-mono/"> VINS-Mono </a>
+            
+          </div>
+        <span class="more-meta"> 1095 words </span>
+          <span class="more-meta"> 3 min read </span>
+
+        
+        
+
+        
+        
       </div>
+    </header>
+
     
-  
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#几个重要的对象">几个重要的对象</a>
+<ul>
+<li><a href="#estimator">estimator</a></li>
+<li><a href="#f-manager">f_manager</a></li>
+</ul></li>
+<li><a href="#初始化概述">初始化概述</a>
+<ul>
+<li><a href="#滑动窗口未塞满">滑动窗口未塞满</a></li>
+<li><a href="#滑动窗口已塞满">滑动窗口已塞满</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
 
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-09-26
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018-09-26-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEhd-map/" class="archive-post-link">
-          高精度地图HD map
-        </a>
-      </span>
+    
+    <div class="post-content">
+      
+
+<h1 id="几个重要的对象">几个重要的对象</h1>
+
+<h2 id="estimator">estimator</h2>
+
+<p>VINS Mono的主要功能被封装成了一个类<code>Estimator</code>，在vins_estimator_node中，通过创建一个<code>Estimator</code>的实例<code>estimator</code>来实现功能。我把estimator称作VINS系统，VINS系统有两种状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">enum</span> <span class="n">SolverFlag</span>
+<span class="p">{</span>
+    <span class="n">INITIAL</span><span class="p">,</span> <span class="c1">// 还未成功初始化
+</span><span class="c1"></span>    <span class="n">NON_LINEAR</span> <span class="c1">// 已成功初始化，正处于紧耦合优化状态
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="f-manager">f_manager</h2>
+
+<p>与滑动窗口中特征点相关的操作，被封装为了一个类<code>FeatureManager</code>。在estimator对象内部创建了一个<code>FeatureManager</code>的实例f_manager，作为estimator的成员变量，它负责完成滑动窗口中的特征点管理，三角化，以及关键帧相关的操作。</p>
+
+<h1 id="初始化概述">初始化概述</h1>
+
+<p>当<code>Estimator::processImage()</code>接收到图像特征点数据后：</p>
+
+<ol>
+<li><p>先调用<code>FeatureManager::addFeatureCheckParallax()</code>函数，把图像特征点数据存入<code>FeatureManager</code>对象，并判断是否把滑动窗口中的第二最新帧选为关键帧，然后选择滑动窗口时的边缘化策略<code>marginalization_flag</code>(<code>MARGIN_OLD</code> or <code>MARGIN_SECOND_NEW</code>)。</p></li>
+
+<li><p>然后检查相机与IMU的外参是否已经标定，如果未标定，则进行在线标定(在线标定有失败的可能性)。</p></li>
+
+<li><p>接着再去检查VINS系统的状态，当VINS系统第一次启动，以及VINS系统重启的时候，会处于<code>INITIAL</code>状态。当VINS系统处于<code>INITIAL</code>状态时，会存在两种情况，一是滑动窗口中图像特征点数据的帧数（当前读入的帧也计算在内）没有达到滑动窗口大小<code>WINDOW_SIZE</code>，另一种情况是滑动窗口已经满了。</p></li>
+</ol>
+
+<h2 id="滑动窗口未塞满">滑动窗口未塞满</h2>
+
+<p>由于图像特征点数据是一帧一帧的塞到滑动窗口中的，所以在VINS系统刚刚启动或者刚刚重启的时候，滑动窗口会没有塞满，此时不进行初始化操作，而且每来一帧图像特征点数据，都会塞到滑动窗口中，直到数量达到<code>WINDOW_SIZE</code>。（代码中窗口大小实际上是<code>WINDOW_SIZE + 1</code>，不过问题不大）</p>
+
+<h2 id="滑动窗口已塞满">滑动窗口已塞满</h2>
+
+<p>当滑动窗口塞满后，先检查相机与IMU的外参是否已经标定，以及离上次初始化操作的时间间隔是否大于一个阈值（比如代码中的0.1s）。如果外参已经标定，且时间间隔大于阈值，才进行初始化操作，否则不进行初始化。初始化操作由<code>Estimator::initialStructure()</code>完成。</p>
+
+<p>在滑动窗口已塞满的情况下，如果由于不满足条件而未进行初始化操作，或者初始化操作失败，则会根据<code>marginalization_flag</code>对窗口进行滑动操作<code>Estimator::slideWindow()</code>。</p>
+
     </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-09-26
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018-09-26-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/" class="archive-post-link">
-          自动驾驶相关资源汇总
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-09-26
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018-09-26-slam%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/" class="archive-post-link">
-          slam相关资源汇总
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-09-25
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/2018-09-25-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/" class="archive-post-link">
-          自动驾驶相关公司整理
-        </a>
-      </span>
-    </div>
-  
-</section>
 
-
-
-
-
-
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">QingSimon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-01-11</span>
+  </p>
   
-  
-  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content">伟锅原创，转载请注明作者和出处！</span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://qingsimon.github.io/tags/vslam/">vSLAM</a>
+          <a href="https://qingsimon.github.io/tags/vio/">VIO</a>
+          <a href="https://qingsimon.github.io/tags/vins-mono/">VINS-Mono</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2019-01-11-vins-mono%E5%9B%9Bvisual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/">
+            <span class="next-text nav-default">VINS-Mono（四）Visual-Inertial紧耦合优化</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
 
   
   
@@ -374,14 +456,10 @@
   
 
   
-  
 
   
+
   
-
-
-
-
 
         </div>
       </div>

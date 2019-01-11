@@ -6,26 +6,44 @@
     <description>Recent content in Vslam on 伟锅的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 11 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qingsimon.github.io/tags/vslam/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>VINS-Mono（二）vins_estimator</title>
-      <link>https://qingsimon.github.io/post/2018-12-10-vins-mono%E4%BA%8Cvins_estimator/</link>
+      <title>VINS-Mono（三）初始化</title>
+      <link>https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
+      <pubDate>Fri, 11 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
+      <description>几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima</description>
+    </item>
+    
+    <item>
+      <title>VINS-Mono（四）Visual-Inertial紧耦合优化</title>
+      <link>https://qingsimon.github.io/post/2019-01-11-vins-mono%E5%9B%9Bvisual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Fri, 11 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-01-11-vins-mono%E5%9B%9Bvisual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/</guid>
+      <description>VINS系统初始化成功后，系统状态会置为NON_LINEAR。此时Estimator::processImage()接收到图像特征点数据后，</description>
+    </item>
+    
+    <item>
+      <title>VINS-Mono（二）vins_estimator_node</title>
+      <link>https://qingsimon.github.io/post/2018-12-10-vins-mono%E4%BA%8Cvins_estimator_node/</link>
       <pubDate>Mon, 10 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://qingsimon.github.io/post/2018-12-10-vins-mono%E4%BA%8Cvins_estimator/</guid>
+      <guid>https://qingsimon.github.io/post/2018-12-10-vins-mono%E4%BA%8Cvins_estimator_node/</guid>
       <description>IMU预积分 关于IMU预积分的详细内容可参考VINS-Mono详解。 VINS-Mono后端 VINS-Mono将VIO和后端封装为一个ROS节</description>
     </item>
     
     <item>
-      <title>VINS-Mono（一）特征点提取与光流跟踪</title>
-      <link>https://qingsimon.github.io/post/2018-09-29-vins-mono%E4%B8%80%E7%89%B9%E5%BE%81%E7%82%B9%E6%8F%90%E5%8F%96%E4%B8%8E%E5%85%89%E6%B5%81%E8%B7%9F%E8%B8%AA/</link>
+      <title>VINS-Mono（一）feature_tracker_node特征点提取与光流跟踪</title>
+      <link>https://qingsimon.github.io/post/2018-09-29-vins-mono%E4%B8%80feature_tracker_node%E7%89%B9%E5%BE%81%E7%82%B9%E6%8F%90%E5%8F%96%E4%B8%8E%E5%85%89%E6%B5%81%E8%B7%9F%E8%B8%AA/</link>
       <pubDate>Sat, 29 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://qingsimon.github.io/post/2018-09-29-vins-mono%E4%B8%80%E7%89%B9%E5%BE%81%E7%82%B9%E6%8F%90%E5%8F%96%E4%B8%8E%E5%85%89%E6%B5%81%E8%B7%9F%E8%B8%AA/</guid>
+      <guid>https://qingsimon.github.io/post/2018-09-29-vins-mono%E4%B8%80feature_tracker_node%E7%89%B9%E5%BE%81%E7%82%B9%E6%8F%90%E5%8F%96%E4%B8%8E%E5%85%89%E6%B5%81%E8%B7%9F%E8%B8%AA/</guid>
       <description>VINS-Mono前端概述 VINS-Mono将前端封装为一个ROS节点feature_tracker_node，该节点订阅相机图像话题数据后</description>
     </item>
     
