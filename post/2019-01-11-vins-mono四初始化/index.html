@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VINS-Mono（四）初始化 - 伟锅的博客</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="QingSimon" />
+  <meta name="description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima" />
+
+  <meta name="keywords" content="weiguo, 伟锅, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.49.1" />
+
+
+<link rel="canonical" href="https://qingsimon.github.io/post/2019-01-11-vins-mono%E5%9B%9B%E5%88%9D%E5%A7%8B%E5%8C%96/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="VINS-Mono（四）初始化" />
+<meta property="og:description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qingsimon.github.io/post/2019-01-11-vins-mono%E5%9B%9B%E5%88%9D%E5%A7%8B%E5%8C%96/" /><meta property="article:published_time" content="2019-01-11T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-01-11T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="VINS-Mono（四）初始化">
+<meta itemprop="description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima">
+
+
+<meta itemprop="datePublished" content="2019-01-11T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-11T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3122">
+
+
+
+<meta itemprop="keywords" content="vSLAM,VIO,VINS-Mono," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VINS-Mono（四）初始化"/>
+<meta name="twitter:description" content="几个重要的对象 estimator VINS Mono的主要功能被封装成了一个类Estimator，在vins_estimator_node中，通过创建一个Estima"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">weiguo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+              <i class="iconfont icon-new-window"></i>
+            </a>
+          
+        
+      </li>
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      weiguo
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+            <i class="iconfont icon-new-window"></i>
+            </a>
+          
+
+        
+
+      </li>
+    
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">VINS-Mono（四）初始化</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-11 </span>
+        <div class="post-category">
+            <a href="https://qingsimon.github.io/categories/vins-mono/"> VINS-Mono </a>
+            
+          </div>
+        <span class="more-meta"> 3122 words </span>
+          <span class="more-meta"> 7 min read </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#几个重要的对象">几个重要的对象</a>
+<ul>
+<li><a href="#estimator"><code>estimator</code></a></li>
+<li><a href="#f-manager"><code>f_manager</code></a></li>
+<li><a href="#sfm-f"><code>sfm_f</code></a></li>
+<li><a href="#all-image-frame"><code>all_image_frame</code></a></li>
+<li><a href="#sfm-tracked-points"><code>sfm_tracked_points</code></a></li>
+<li><a href="#toc_6">``</a></li>
+</ul></li>
+<li><a href="#初始化概述">初始化概述</a></li>
+<li><a href="#初始化入口函数">初始化入口函数</a>
+<ul>
+<li><a href="#纯视觉初始化">纯视觉初始化</a>
+<ul>
+<li><a href="#计算重力协方差">计算重力协方差</a></li>
+<li><a href="#estimator-relativepose"><code>Estimator::relativePose()</code></a></li>
+<li><a href="#globalsfm-construct"><code>GlobalSFM::construct()</code></a></li>
+<li><a href="#解算滑动窗口外所有帧的位姿">解算滑动窗口外所有帧的位姿</a></li>
+</ul></li>
+<li><a href="#视觉-惯性对齐">视觉-惯性对齐</a>
+<ul>
+<li><a href="#visualimualignment"><code>VisualIMUAlignment()</code></a>
+<ul>
+<li><a href="#solvegyroscopebias"><code>solveGyroscopeBias()</code></a></li>
+</ul></li>
+<li><a href="#linearalignment"><code>LinearAlignment()</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#参考资料">参考资料</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h1 id="几个重要的对象">几个重要的对象</h1>
+
+<h2 id="estimator"><code>estimator</code></h2>
+
+<p>VINS Mono的主要功能被封装成了一个类<code>Estimator</code>，在vins_estimator_node中，通过创建一个<code>Estimator</code>的实例<code>estimator</code>来实现功能。我把estimator称作VINS系统，VINS系统有两种状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">enum</span> <span class="n">SolverFlag</span>
+<span class="p">{</span>
+    <span class="n">INITIAL</span><span class="p">,</span> <span class="c1">// 还未成功初始化
+</span><span class="c1"></span>    <span class="n">NON_LINEAR</span> <span class="c1">// 已成功初始化，正处于紧耦合优化状态
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="f-manager"><code>f_manager</code></h2>
+
+<p>与滑动窗口中特征点相关的操作，被封装为了一个类<code>FeatureManager</code>。在estimator对象内部创建了一个<code>FeatureManager</code>的实例f_manager，作为estimator的成员变量，它负责完成滑动窗口中的特征点管理，三角化，以及关键帧相关的操作。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">class</span><span class="err"> </span><span class="nc">FeatureManager</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">list</span><span class="o">&lt;</span><span class="n">FeaturePerId</span><span class="o">&gt;</span> <span class="n">feature</span><span class="p">;</span> <span class="c1">// 通过FeatureManager可以得到滑动窗口内所有的角点信息
+</span><span class="c1"></span>    <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// FeaturePerId的定义
+</span><span class="c1"></span><span class="k">class</span><span class="err"> </span><span class="nc">FeaturePerId</span>
+<span class="p">{</span>
+    <span class="c1">// 以feature_id为索引，并保存了出现该角点的第一帧的id，
+</span><span class="c1"></span>    <span class="p">...</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">feature_id</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">start_frame</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">FeaturePerFrame</span><span class="o">&gt;</span> <span class="n">feature_per_frame</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="c1">// FeaturePerFrame的定义
+</span><span class="c1"></span><span class="k">class</span><span class="err"> </span><span class="nc">FeaturePerFrame</span>
+<span class="p">{</span>
+    <span class="c1">// 保存了归一化坐标，图像坐标以及深度    
+</span><span class="c1"></span>    <span class="p">...</span>
+    <span class="n">Vector3d</span> <span class="n">point</span><span class="p">;</span>
+    <span class="n">Vector2d</span> <span class="n">uv</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">z</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="sfm-f"><code>sfm_f</code></h2>
+
+<p><code>sfm_f</code>是用于视觉初始化的图像特征点数据（不是有<code>f_manager</code>吗？为什么还要再整一个<code>sfm_f</code>？）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">// 用于视觉初始化的图像特征点数据
+</span><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SFMFeature</span><span class="o">&gt;</span> <span class="n">sfm_f</span><span class="p">;</span>
+
+<span class="c1">// SFMFeature的定义
+</span><span class="c1"></span><span class="k">struct</span> <span class="n">SFMFeature</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">state</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">Vector2d</span><span class="o">&gt;&gt;</span> <span class="n">observation</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">position</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="kt">double</span> <span class="n">depth</span><span class="p">;</span>
+<span class="p">};</span>  
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="all-image-frame"><code>all_image_frame</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">// 存储所有的ImageFrame对象（每读取一帧图像就会构建ImageFrame对象）
+</span><span class="c1"></span>    <span class="c1">// 键是图像帧的时间戳，值是ImageFrame对象，ImageFrame对象中保存了图像帧的位姿，相应的预积分和图像特征点信息
+</span><span class="c1"></span>    <span class="n">map</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">ImageFrame</span><span class="o">&gt;</span> <span class="n">all_image_frame</span><span class="p">;</span> 
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="sfm-tracked-points"><code>sfm_tracked_points</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">sfm_tracked_points</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="toc_6">``</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++">
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="初始化概述">初始化概述</h1>
+
+<p>当<code>Estimator::processImage()</code>接收到图像特征点数据后：</p>
+
+<ol>
+<li><p>先调用<code>FeatureManager::addFeatureCheckParallax()</code>函数，把图像特征点数据存入<code>FeatureManager</code>对象，并判断是否把滑动窗口中的第二最新帧选为关键帧，然后选择滑动窗口时的边缘化策略<code>marginalization_flag</code>(<code>MARGIN_OLD</code> or <code>MARGIN_SECOND_NEW</code>)。</p></li>
+
+<li><p>然后检查相机与IMU的外参是否已经标定，如果未标定，则进行在线标定(在线标定有失败的可能性)。</p></li>
+
+<li><p>接着再去检查VINS系统的状态，当VINS系统第一次启动，以及VINS系统重启的时候，会处于<code>INITIAL</code>状态。当VINS系统处于<code>INITIAL</code>状态时，会存在两种情况，一是滑动窗口中图像特征点数据的帧数（当前读入的帧也计算在内）没有达到滑动窗口大小<code>WINDOW_SIZE</code>，另一种情况是滑动窗口已经满了。</p>
+
+<ul>
+<li><p>滑动窗口未塞满：<br />
+由于图像特征点数据是一帧一帧的塞到滑动窗口中的，所以在VINS系统刚刚启动或者刚刚重启的时候，滑动窗口会没有塞满，此时不进行初始化操作，而且每来一帧图像特征点数据，都会塞到滑动窗口中，直到数量达到<code>WINDOW_SIZE</code>。（代码中窗口大小实际上是<code>WINDOW_SIZE + 1</code>，不过问题不大）</p></li>
+
+<li><p>滑动窗口已塞满：<br />
+当滑动窗口塞满后，先检查相机与IMU的外参是否已经标定，以及离上次初始化操作的时间间隔是否大于一个阈值（比如代码中的0.1s）。如果外参已经标定，且时间间隔大于阈值，才进行初始化操作，否则不进行初始化。初始化操作由<code>Estimator::initialStructure()</code>完成。<br />
+在滑动窗口已塞满的情况下，如果由于不满足条件而未进行初始化操作，或者初始化操作失败，则会根据<code>marginalization_flag</code>对窗口进行滑动操作<code>Estimator::slideWindow()</code>。通过滑动窗口可以腾出一个位置，留给下一帧读取的图像特征点数据。在读取新的图像特征点数据后，又返回步骤1。</p></li>
+</ul></li>
+</ol>
+
+<h1 id="初始化入口函数">初始化入口函数</h1>
+
+<p>VINS Mono初始化的入口函数为<code>bool Estimator::initialStructure()</code>。VINS初始化的流程为：</p>
+
+<ul>
+<li><p>通过计算重力协方差，检测IMU是否有足够的excitation。如果有则进入下一步，否则VINS初始化失败。（在新版本代码中，进行了检测，但是即使激励不够，也会进入下一步）</p></li>
+
+<li><p>纯视觉初始化</p>
+
+<ul>
+<li><p><code>Estimator::relativePose()</code>在滑动窗口中选择与滑动窗口最新帧有足够数量的共视特征点（30个）以及足够视差（20 pixels）的帧l（l是该帧在滑动窗口中的帧号，注意是字母l，不是数字1），使用五点法恢复两帧之间的相对位姿。如果这一步失败，则VINS初始化失败。</p></li>
+
+<li><p><code>GlobalSFM::construct()</code>计算滑动窗口中全部初始帧的相机位姿和特征点的3D位置（这里似乎是把帧l的相机坐标系作为世界坐标系，但是VINS Mono的论文中说是把滑动窗口中的第一帧的相机坐标系作为世界坐标系。不知道是不是我理解的不对，不过这个问题不大）。在<code>GlobalSFM::construct()</code>中，使用一种鸡生蛋、蛋生鸡的方式交替进行特征点三角化和pnp解算位姿的操作，对任意一帧的pnp解算失败都会导致<code>GlobalSFM::construct()</code>失败，进而VINS初始化失败。如果滑动窗口中全部初始帧的位姿和特征点的3D位置结算成功，最后会使用cere进行BA优化。</p></li>
+
+<li><p>在视觉初始化的最后一步，对所有帧求解一次pnp。因为前面几步只得到了滑动窗口内所有关键帧的位姿，但由于初始化不一定会一次成功，所以会有一些图像特征点数据帧滑动到了滑动窗口外（这些帧的数据保存在<code>all_image_frame</code>中），此时需要把那些不在滑动窗口中的帧的位姿结算出来。在这一步，如果有任意一帧pnp解算位姿失败，则VINS初始化失败。最后根据各帧相机坐标系的姿态和外参，得到用各帧IMU坐标系的姿态。</p></li>
+</ul></li>
+
+<li><p>视觉-惯性对齐。对齐过程在<code>Estimator::visualInitialAlign()</code>中完成。</p>
+
+<ul>
+<li>陀螺仪bias初始化。在滑动窗口中，用每两帧之间通过SFM求解出来的旋转与IMU预积分的旋转构建一个最小二乘问题，解出陀螺仪的bias。初始化陀螺仪的bias后，要重新计算IMU预积分值。</li>
+<li>计算各图像帧对应的速度v，以及重力向量g和尺度因子s。在滑动窗口中，用每两帧之间通过SFM求解出来的位姿信息，和IMU预积分出来的位置和速度，构建一个最小二乘问题，解出v、g、s。</li>
+<li>对重力向量g的refinement。用上一步求出的重力向量，固定重力加速度的模值，在正切空间重新参数化重力向量（从3个自由度变为2个自由度），对重力向量方向进行精调。</li>
+<li>得到以g为z轴的世界坐标系，并根据尺度因子s对地图进行缩放。如果程序成功运行到了这一步，则VINS初始化成功。</li>
+</ul></li>
+</ul>
+
+<p>初始化过程中任意一步的失败，都会导致VINS初始化失败，然后重新开始初始化。VINS的初始化过程就像要经历九九八十一难，说起九九八十一难，我就想起了***，明年，中美，合拍，关注。</p>
+
+<h2 id="纯视觉初始化">纯视觉初始化</h2>
+
+<h3 id="计算重力协方差">计算重力协方差</h3>
+
+<p>TODO</p>
+
+<h3 id="estimator-relativepose"><code>Estimator::relativePose()</code></h3>
+
+<h3 id="globalsfm-construct"><code>GlobalSFM::construct()</code></h3>
+
+<h3 id="解算滑动窗口外所有帧的位姿">解算滑动窗口外所有帧的位姿</h3>
+
+<h2 id="视觉-惯性对齐">视觉-惯性对齐</h2>
+
+<h3 id="visualimualignment"><code>VisualIMUAlignment()</code></h3>
+
+<p>在<code>Estimator::visualInitialAlign()</code>中，调用位于<code>initial_aligment.cpp</code>中的<code>VisualIMUAlignment()</code>实现视觉SFM的结果与IMU预积分结果对齐：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">// visual-inertial alignment：视觉SFM的结果与IMU预积分结果对齐
+</span><span class="c1"></span><span class="kt">bool</span> <span class="nf">VisualIMUAlignment</span><span class="p">(</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">ImageFrame</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">all_image_frame</span><span class="p">,</span> <span class="n">Vector3d</span><span class="o">*</span> <span class="n">Bgs</span><span class="p">,</span> <span class="n">Vector3d</span> <span class="o">&amp;</span><span class="n">g</span><span class="p">,</span> <span class="n">VectorXd</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//估测陀螺仪的Bias，对应论文V-B-1
+</span><span class="c1"></span>    <span class="n">solveGyroscopeBias</span><span class="p">(</span><span class="n">all_image_frame</span><span class="p">,</span> <span class="n">Bgs</span><span class="p">);</span>
+
+    <span class="c1">//求解V 重力向量g和 尺度s
+</span><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="n">LinearAlignment</span><span class="p">(</span><span class="n">all_image_frame</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">else</span> 
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="solvegyroscopebias"><code>solveGyroscopeBias()</code></h4>
+
+<p>解算陀螺仪的Bias。</p>
+
+<h3 id="linearalignment"><code>LinearAlignment()</code></h3>
+
+<p>求解各帧对应的速度v，以及重力向量g和尺度因子s。</p>
+
+<h1 id="参考资料">参考资料</h1>
+
+<ol>
+<li><a href="https://blog.csdn.net/u012871872/article/details/78128087" target="_blank">VINS-Mono 代码解读</a></li>
+<li><a href="https://zhehangt.github.io/2018/04/19/SLAM/VINS/VINSInitialiaztion/" target="_blank">VINS-Mono中的VIO初始化</a></li>
+</ol>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">QingSimon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-01-11</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content">伟锅原创，转载请注明作者和出处！</span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://qingsimon.github.io/tags/vslam/">vSLAM</a>
+          <a href="https://qingsimon.github.io/tags/vio/">VIO</a>
+          <a href="https://qingsimon.github.io/tags/vins-mono/">VINS-Mono</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2019-01-11-vins-mono%E4%BA%94visual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">VINS-Mono（五）Visual-Inertial紧耦合优化</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/2018-12-28-android%E6%89%8B%E6%9C%BA%E7%9B%B8camera%E5%92%8Cimu%E7%9A%84%E6%A0%87%E5%AE%9A/">
+            <span class="next-text nav-default">Android手机camera和IMU的标定</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/QingSimon" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://qingsimon.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+  </div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2018 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">
+        伟锅
+        
+      </span></span>
+
+  
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

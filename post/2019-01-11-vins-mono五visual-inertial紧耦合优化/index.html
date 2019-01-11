@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VINS-Mono（五）Visual-Inertial紧耦合优化 - 伟锅的博客</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="QingSimon" />
+  <meta name="description" content="VINS系统初始化成功后，系统状态会置为NON_LINEAR。此时Estimator::processImage()接收到图像特征点数据后，" />
+
+  <meta name="keywords" content="weiguo, 伟锅, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.49.1" />
+
+
+<link rel="canonical" href="https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%BA%94visual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="VINS-Mono（五）Visual-Inertial紧耦合优化" />
+<meta property="og:description" content="VINS系统初始化成功后，系统状态会置为NON_LINEAR。此时Estimator::processImage()接收到图像特征点数据后，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%BA%94visual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/" /><meta property="article:published_time" content="2019-01-11T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-01-11T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="VINS-Mono（五）Visual-Inertial紧耦合优化">
+<meta itemprop="description" content="VINS系统初始化成功后，系统状态会置为NON_LINEAR。此时Estimator::processImage()接收到图像特征点数据后，">
+
+
+<meta itemprop="datePublished" content="2019-01-11T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-11T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="570">
+
+
+
+<meta itemprop="keywords" content="vSLAM,VIO,VINS-Mono," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VINS-Mono（五）Visual-Inertial紧耦合优化"/>
+<meta name="twitter:description" content="VINS系统初始化成功后，系统状态会置为NON_LINEAR。此时Estimator::processImage()接收到图像特征点数据后，"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">weiguo</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+              <i class="iconfont icon-new-window"></i>
+            </a>
+          
+        
+      </li>
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      weiguo
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://qingsimon.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://github.com/QingSimon" rel="noopener" target="_blank">
+              external-link
+            <i class="iconfont icon-new-window"></i>
+            </a>
+          
+
+        
+
+      </li>
+    
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">VINS-Mono（五）Visual-Inertial紧耦合优化</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-11 </span>
+        <div class="post-category">
+            <a href="https://qingsimon.github.io/categories/vins-mono/"> VINS-Mono </a>
+            
+          </div>
+        <span class="more-meta"> 570 words </span>
+          <span class="more-meta"> 2 min read </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#紧耦合优化入口函数">紧耦合优化入口函数</a>
+<ul>
+<li><a href="#三角化-featuremanager-triangulate">三角化<code>FeatureManager::triangulate()</code></a></li>
+<li><a href="#紧耦合优化-estimator-optimization">紧耦合优化<code>Estimator::optimization()</code></a></li>
+</ul></li>
+<li><a href="#对窗口进行滑动-estimator-slidewindow">对窗口进行滑动<code>Estimator::slideWindow()</code></a></li>
+<li><a href="#去除滑出了滑动窗口的特征点">去除滑出了滑动窗口的特征点</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<p>VINS系统初始化成功后，系统状态会置为<code>NON_LINEAR</code>。此时<code>Estimator::processImage()</code>接收到图像特征点数据后，会进行Visual-Inertial的紧耦合优化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="k">if</span> <span class="p">(</span><span class="n">solver_flag</span> <span class="o">==</span> <span class="n">INITIAL</span><span class="p">)</span> <span class="c1">// 需要初始化
+</span><span class="c1"></span><span class="p">{...</span>    
+<span class="p">}</span>
+<span class="k">else</span> <span class="c1">// 已经成功初始化，进行正常的VIO紧耦合优化
+</span><span class="c1"></span>    <span class="p">{</span>
+        <span class="n">TicToc</span> <span class="n">t_solve</span><span class="p">;</span>
+        <span class="n">solveOdometry</span><span class="p">();</span>
+        <span class="n">ROS_DEBUG</span><span class="p">(</span><span class="s">&#34;solver costs: %fms&#34;</span><span class="p">,</span> <span class="n">t_solve</span><span class="p">.</span><span class="n">toc</span><span class="p">());</span>
+
+        <span class="c1">// 失效检测，如果失效则重启系统
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">failureDetection</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">ROS_WARN</span><span class="p">(</span><span class="s">&#34;failure detection!&#34;</span><span class="p">);</span>
+            <span class="n">failure_occur</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">clearState</span><span class="p">();</span>
+            <span class="n">setParameter</span><span class="p">();</span>
+            <span class="n">ROS_WARN</span><span class="p">(</span><span class="s">&#34;system reboot!&#34;</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 对窗口进行滑动
+</span><span class="c1"></span>        <span class="n">TicToc</span> <span class="n">t_margin</span><span class="p">;</span>
+        <span class="n">slideWindow</span><span class="p">();</span>
+        <span class="n">f_manager</span><span class="p">.</span><span class="n">removeFailures</span><span class="p">();</span>
+        <span class="n">ROS_DEBUG</span><span class="p">(</span><span class="s">&#34;marginalization costs: %fms&#34;</span><span class="p">,</span> <span class="n">t_margin</span><span class="p">.</span><span class="n">toc</span><span class="p">());</span>
+
+        <span class="c1">// prepare output of VINS
+</span><span class="c1"></span>        <span class="n">key_poses</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">WINDOW_SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">key_poses</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Ps</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">last_R</span> <span class="o">=</span> <span class="n">Rs</span><span class="p">[</span><span class="n">WINDOW_SIZE</span><span class="p">];</span>
+        <span class="n">last_P</span> <span class="o">=</span> <span class="n">Ps</span><span class="p">[</span><span class="n">WINDOW_SIZE</span><span class="p">];</span>
+        <span class="n">last_R0</span> <span class="o">=</span> <span class="n">Rs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">last_P0</span> <span class="o">=</span> <span class="n">Ps</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="紧耦合优化入口函数">紧耦合优化入口函数</h1>
+
+<p>Visual-Inertial紧耦合优化的入口函数为：<code>Estimator::solveOdometry()</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="kt">void</span> <span class="n">Estimator</span><span class="o">::</span><span class="n">solveOdometry</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">frame_count</span> <span class="o">&lt;</span> <span class="n">WINDOW_SIZE</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">solver_flag</span> <span class="o">==</span> <span class="n">NON_LINEAR</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 三角化
+</span><span class="c1"></span>        <span class="n">TicToc</span> <span class="n">t_tri</span><span class="p">;</span>
+        <span class="n">f_manager</span><span class="p">.</span><span class="n">triangulate</span><span class="p">(</span><span class="n">Ps</span><span class="p">,</span> <span class="n">tic</span><span class="p">,</span> <span class="n">ric</span><span class="p">);</span>
+        <span class="n">ROS_DEBUG</span><span class="p">(</span><span class="s">&#34;triangulation costs %f&#34;</span><span class="p">,</span> <span class="n">t_tri</span><span class="p">.</span><span class="n">toc</span><span class="p">());</span>
+
+        <span class="c1">// 滑动窗口紧耦合优化
+</span><span class="c1"></span>        <span class="n">optimization</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="三角化-featuremanager-triangulate">三角化<code>FeatureManager::triangulate()</code></h2>
+
+<p>在<code>Estimator::solveOdometry()</code>中，先调用<code>FeatureManager::triangulate()</code>，
+三角化一些特征点，确保<code>f_manager</code>中的所有特征点都有一个深度值。</p>
+
+<h2 id="紧耦合优化-estimator-optimization">紧耦合优化<code>Estimator::optimization()</code></h2>
+
+<h1 id="对窗口进行滑动-estimator-slidewindow">对窗口进行滑动<code>Estimator::slideWindow()</code></h1>
+
+<h1 id="去除滑出了滑动窗口的特征点">去除滑出了滑动窗口的特征点</h1>
+
+<p><code>FeatureManager::removeFailures()</code></p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">QingSimon</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2019-01-11</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content">伟锅原创，转载请注明作者和出处！</span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://qingsimon.github.io/tags/vslam/">vSLAM</a>
+          <a href="https://qingsimon.github.io/tags/vio/">VIO</a>
+          <a href="https://qingsimon.github.io/tags/vins-mono/">VINS-Mono</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/2019-01-11-vins-mono%E4%B8%89imu%E9%A2%84%E7%A7%AF%E5%88%86/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">VINS-Mono（三）IMU预积分</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/2019-01-11-vins-mono%E5%9B%9B%E5%88%9D%E5%A7%8B%E5%8C%96/">
+            <span class="next-text nav-default">VINS-Mono（四）初始化</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/QingSimon" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://qingsimon.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+  </div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2018 -
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">
+        伟锅
+        
+      </span></span>
+
+  
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
