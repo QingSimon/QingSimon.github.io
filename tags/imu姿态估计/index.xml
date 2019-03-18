@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Imu姿态估计 on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</link>
+    <description>Recent content in Imu姿态估计 on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IMU姿态估计</title>
+      <link>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</guid>
+      <description>参考资料 Madgwick算法详细解读 IMU 数据融合 四元数AHRS姿态解算和IMU姿态解算分析 Google Cardboard的九轴融合算法 Mahony显式互</description>
+    </item>
+    
+  </channel>
+</rss>

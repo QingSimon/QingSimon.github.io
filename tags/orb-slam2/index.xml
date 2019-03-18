@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Orb Slam2 on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/orb-slam2/</link>
+    <description>Recent content in Orb Slam2 on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/orb-slam2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ORB-SLAM2 Monocular（二）初始化</title>
+      <link>https://qingsimon.github.io/post/2019-03-01-orb-slam2-monocular%E4%BA%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-01-orb-slam2-monocular%E4%BA%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
+      <description>参考资料 ORB-SLAM2详解（三）自动地图初始化</description>
+    </item>
+    
+    <item>
+      <title>ORB-SLAM2 Monocular（一）代码逻辑</title>
+      <link>https://qingsimon.github.io/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/</guid>
+      <description>参考资料 ORB-SLAM2详解（一）简介 ORB-SLAM2详解（二）代码逻辑</description>
+    </item>
+    
+  </channel>
+</rss>

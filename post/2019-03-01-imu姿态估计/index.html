@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>VINS-Mono（三）IMU预积分 - 伟锅的博客</title>
+  <title>IMU姿态估计 - 伟锅的博客</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="QingSimon" />
-  <meta name="description" content="" />
+  <meta name="description" content="参考资料 Madgwick算法详细解读 IMU 数据融合 四元数AHRS姿态解算和IMU姿态解算分析 Google Cardboard的九轴融合算法 Mahony显式互" />
 
   <meta name="keywords" content="weiguo, 伟锅, blog" />
 
@@ -37,7 +37,7 @@
 <meta name="generator" content="Hugo 0.49.1" />
 
 
-<link rel="canonical" href="https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89imu%E9%A2%84%E7%A7%AF%E5%88%86/" />
+<link rel="canonical" href="https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/" />
 
 
 
@@ -57,26 +57,26 @@
 
 
 
-<meta property="og:title" content="VINS-Mono（三）IMU预积分" />
-<meta property="og:description" content="" />
+<meta property="og:title" content="IMU姿态估计" />
+<meta property="og:description" content="参考资料 Madgwick算法详细解读 IMU 数据融合 四元数AHRS姿态解算和IMU姿态解算分析 Google Cardboard的九轴融合算法 Mahony显式互" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89imu%E9%A2%84%E7%A7%AF%E5%88%86/" /><meta property="article:published_time" content="2019-01-11T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2019-01-11T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/" /><meta property="article:published_time" content="2019-03-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-03-01T00:00:00&#43;00:00"/>
 
-<meta itemprop="name" content="VINS-Mono（三）IMU预积分">
-<meta itemprop="description" content="">
-
-
-<meta itemprop="datePublished" content="2019-01-11T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2019-01-11T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="0">
+<meta itemprop="name" content="IMU姿态估计">
+<meta itemprop="description" content="参考资料 Madgwick算法详细解读 IMU 数据融合 四元数AHRS姿态解算和IMU姿态解算分析 Google Cardboard的九轴融合算法 Mahony显式互">
 
 
+<meta itemprop="datePublished" content="2019-03-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-03-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="83">
 
-<meta itemprop="keywords" content="vSLAM,VIO,VINS-Mono," />
+
+
+<meta itemprop="keywords" content="IMU姿态估计,attitude estimation,sensor fusion,多传感器融合," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="VINS-Mono（三）IMU预积分"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="IMU姿态估计"/>
+<meta name="twitter:description" content="参考资料 Madgwick算法详细解读 IMU 数据融合 四元数AHRS姿态解算和IMU姿态解算分析 Google Cardboard的九轴融合算法 Mahony显式互"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -311,16 +311,15 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">VINS-Mono（三）IMU预积分</h1>
+      <h1 class="post-title">IMU姿态估计</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2019-01-11 </span>
+        <span class="post-time"> 2019-03-01 </span>
         <div class="post-category">
-            <a href="https://qingsimon.github.io/categories/vins-mono/"> VINS-Mono </a>
             
           </div>
-        <span class="more-meta"> 0 words </span>
-          <span class="more-meta"> 0 min read </span>
+        <span class="more-meta"> 83 words </span>
+          <span class="more-meta"> 1 min read </span>
 
         
         
@@ -335,13 +334,29 @@
 <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Table of Contents</h2>
   <div class="post-toc-content">
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#参考资料">参考资料</a></li>
+</ul>
+</nav>
   </div>
 </div>
 
     
     <div class="post-content">
       
+
+<h1 id="参考资料">参考资料</h1>
+
+<ol>
+<li><a href="https://www.cnblogs.com/ilekoaiq/p/8849217.html" target="_blank">Madgwick算法详细解读</a></li>
+<li><a href="https://blog.csdn.net/haithink/article/details/79975679" target="_blank">IMU 数据融合</a></li>
+<li><a href="http://www.bspilot.com/?p=121" target="_blank">四元数AHRS姿态解算和IMU姿态解算分析</a></li>
+<li><a href="http://www.cnblogs.com/ilekoaiq/p/8710812.html" target="_blank">Google Cardboard的九轴融合算法</a></li>
+<li><a href="http://chenbinpeng.com/2016/10/08/ECF/" target="_blank">Mahony显式互补滤波</a></li>
+<li><a href="http://chenbinpeng.com/2016/10/08/ECF/A%20Complementary%20Filter%20for%20Attitude%20Estimation%20of%20a%20Fixed-Wing%20UAV.pdf" target="_blank">A Complementary Filter for Attitude Estimation of a Fixed-Wing UAV</a></li>
+</ol>
+
     </div>
 
     
@@ -353,7 +368,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2019-01-11</span>
+    <span class="item-content">2019-03-01</span>
   </p>
   
   <p class="copyright-item">
@@ -367,23 +382,18 @@
 
     <footer class="post-footer">
       <div class="post-tags">
-          <a href="https://qingsimon.github.io/tags/vslam/">vSLAM</a>
-          <a href="https://qingsimon.github.io/tags/vio/">VIO</a>
-          <a href="https://qingsimon.github.io/tags/vins-mono/">VINS-Mono</a>
+          <a href="https://qingsimon.github.io/tags/attitude-estimation/">attitude estimation</a>
+          <a href="https://qingsimon.github.io/tags/sensor-fusion/">sensor fusion</a>
+          <a href="https://qingsimon.github.io/tags/%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/">多传感器融合</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">ORB-SLAM2 Monocular（一）代码逻辑</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
         
-          <a class="next" href="/post/2019-01-11-vins-mono%E4%BA%94visual-inertial%E7%B4%A7%E8%80%A6%E5%90%88%E4%BC%98%E5%8C%96/">
-            <span class="next-text nav-default">VINS-Mono（五）Visual-Inertial紧耦合优化</span>
+          <a class="next" href="/post/2019-03-01-orb-slam2-monocular%E4%BA%8C%E5%88%9D%E5%A7%8B%E5%8C%96/">
+            <span class="next-text nav-default">ORB-SLAM2 Monocular（二）初始化</span>
             <span class="prev-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>

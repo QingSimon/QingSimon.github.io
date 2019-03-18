@@ -24,6 +24,66 @@
     </item>
     
     <item>
+      <title>IMU姿态估计</title>
+      <link>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/ilekoaiq/p/8849217.html&#34; target=&#34;_blank&#34;&gt;Madgwick算法详细解读&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/haithink/article/details/79975679&#34; target=&#34;_blank&#34;&gt;IMU 数据融合&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.bspilot.com/?p=121&#34; target=&#34;_blank&#34;&gt;四元数AHRS姿态解算和IMU姿态解算分析&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cnblogs.com/ilekoaiq/p/8710812.html&#34; target=&#34;_blank&#34;&gt;Google Cardboard的九轴融合算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://chenbinpeng.com/2016/10/08/ECF/&#34; target=&#34;_blank&#34;&gt;Mahony显式互补滤波&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://chenbinpeng.com/2016/10/08/ECF/A%20Complementary%20Filter%20for%20Attitude%20Estimation%20of%20a%20Fixed-Wing%20UAV.pdf&#34; target=&#34;_blank&#34;&gt;A Complementary Filter for Attitude Estimation of a Fixed-Wing UAV&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>ORB-SLAM2 Monocular（二）初始化</title>
+      <link>https://qingsimon.github.io/post/2019-03-01-orb-slam2-monocular%E4%BA%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-01-orb-slam2-monocular%E4%BA%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/u010128736/article/details/53218140&#34; target=&#34;_blank&#34;&gt;ORB-SLAM2详解（三）自动地图初始化&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>ORB-SLAM2 Monocular（一）代码逻辑</title>
+      <link>https://qingsimon.github.io/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/u010128736/article/details/53157605&#34; target=&#34;_blank&#34;&gt;ORB-SLAM2详解（一）简介&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/u010128736/article/details/53169832&#34; target=&#34;_blank&#34;&gt;ORB-SLAM2详解（二）代码逻辑&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>VINS-Mono（三）IMU预积分</title>
       <link>https://qingsimon.github.io/post/2019-01-11-vins-mono%E4%B8%89imu%E9%A2%84%E7%A7%AF%E5%88%86/</link>
       <pubDate>Fri, 11 Jan 2019 00:00:00 +0000</pubDate>

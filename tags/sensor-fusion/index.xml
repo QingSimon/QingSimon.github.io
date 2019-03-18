@@ -6,10 +6,19 @@
     <description>Recent content in Sensor Fusion on 伟锅的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 12 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qingsimon.github.io/tags/sensor-fusion/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>IMU姿态估计</title>
+      <link>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</link>
+      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</guid>
+      <description>参考资料 Madgwick算法详细解读 IMU 数据融合 四元数AHRS姿态解算和IMU姿态解算分析 Google Cardboard的九轴融合算法 Mahony显式互</description>
+    </item>
     
     <item>
       <title>自动驾驶中的传感器融合</title>
