@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>https://qingsimon.github.io/post/2019-03-30-ar--vr%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</loc>
+    <lastmod>2019-03-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -143,6 +150,20 @@
   </url>
   
   <url>
+    <loc>https://qingsimon.github.io/tags/ar/</loc>
+    <lastmod>2019-03-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://qingsimon.github.io/categories/ar-vr/</loc>
+    <lastmod>2019-03-30T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://qingsimon.github.io/tags/attitude-estimation/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -178,14 +199,14 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</loc>
+    <loc>https://qingsimon.github.io/tags/imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/tags/imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</loc>
+    <loc>https://qingsimon.github.io/categories/imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -199,14 +220,14 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/orb-slam2-monocular/</loc>
+    <loc>https://qingsimon.github.io/tags/orb-slam2-monocular/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/tags/orb-slam2-monocular/</loc>
+    <loc>https://qingsimon.github.io/categories/orb-slam2-monocular/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -221,7 +242,7 @@
   
   <url>
     <loc>https://qingsimon.github.io/post/</loc>
-    <lastmod>2019-03-01T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -241,13 +262,6 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/sensor-fusion/</loc>
-    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://qingsimon.github.io/tags/sensor-fusion/</loc>
     <lastmod>2019-03-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -255,14 +269,21 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/slam/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
+    <loc>https://qingsimon.github.io/categories/sensor-fusion/</loc>
+    <lastmod>2018-10-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://qingsimon.github.io/tags/slam/</loc>
+    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://qingsimon.github.io/categories/slam/</loc>
     <lastmod>2018-11-07T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -276,14 +297,14 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/vins-mono/</loc>
+    <loc>https://qingsimon.github.io/tags/vins-mono/</loc>
     <lastmod>2019-01-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/tags/vins-mono/</loc>
+    <loc>https://qingsimon.github.io/categories/vins-mono/</loc>
     <lastmod>2019-01-11T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -292,6 +313,13 @@
   <url>
     <loc>https://qingsimon.github.io/tags/vio/</loc>
     <lastmod>2019-01-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://qingsimon.github.io/tags/vr/</loc>
+    <lastmod>2019-03-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -311,14 +339,14 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</loc>
+    <loc>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</loc>
     <lastmod>2018-12-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</loc>
+    <loc>https://qingsimon.github.io/categories/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</loc>
     <lastmod>2018-12-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -353,15 +381,15 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/</loc>
-    <lastmod>2018-10-30T00:00:00+00:00</lastmod>
+    <loc>https://qingsimon.github.io/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/</loc>
+    <lastmod>2018-09-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/</loc>
-    <lastmod>2018-09-26T00:00:00+00:00</lastmod>
+    <loc>https://qingsimon.github.io/categories/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/</loc>
+    <lastmod>2018-10-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -374,14 +402,14 @@
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/categories/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</loc>
+    <loc>https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</loc>
     <lastmod>2018-09-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://qingsimon.github.io/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</loc>
+    <loc>https://qingsimon.github.io/categories/%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE/</loc>
     <lastmod>2018-09-26T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>

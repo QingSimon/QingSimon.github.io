@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vr on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/vr/</link>
+    <description>Recent content in Vr on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 30 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/vr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AR &amp; VR相关公司整理</title>
+      <link>https://qingsimon.github.io/post/2019-03-30-ar--vr%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-30-ar--vr%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</guid>
+      <description>国内公司 悉见科技 亮风台 国外公司 Microsoft 微软在2019年推出HoLoLens2，果然微软黑科技，领先友商一个时代，无敌是多么寂寞。 google Google Tango，谷</description>
+    </item>
+    
+  </channel>
+</rss>

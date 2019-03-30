@@ -24,6 +24,40 @@
     </item>
     
     <item>
+      <title>AR &amp; VR相关公司整理</title>
+      <link>https://qingsimon.github.io/post/2019-03-30-ar--vr%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-30-ar--vr%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;国内公司&#34;&gt;国内公司&lt;/h1&gt;
+
+&lt;h2 id=&#34;悉见科技&#34;&gt;悉见科技&lt;/h2&gt;
+
+&lt;h2 id=&#34;亮风台&#34;&gt;亮风台&lt;/h2&gt;
+
+&lt;h1 id=&#34;国外公司&#34;&gt;国外公司&lt;/h1&gt;
+
+&lt;h2 id=&#34;microsoft&#34;&gt;Microsoft&lt;/h2&gt;
+
+&lt;p&gt;微软在2019年推出HoLoLens2，果然微软黑科技，领先友商一个时代，无敌是多么寂寞。&lt;/p&gt;
+
+&lt;h2 id=&#34;google&#34;&gt;google&lt;/h2&gt;
+
+&lt;p&gt;Google Tango，谷歌黑科技自然是没话说，但是google拉着联想出的Tango手机真的是一言难尽，又大又沉，拿在手里就像一块会发光的板儿砖，Tango手机拿在手上，总有一种想笑的感觉。&lt;/p&gt;
+
+&lt;p&gt;ARCore。&lt;/p&gt;
+
+&lt;h2 id=&#34;apple&#34;&gt;Apple&lt;/h2&gt;
+
+&lt;p&gt;ARKit。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>IMU姿态估计</title>
       <link>https://qingsimon.github.io/post/2019-03-01-imu%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1/</link>
       <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
@@ -316,17 +350,17 @@
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;FeaturePerId&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;c1&#34;&gt;// 以feature_id为索引，并保存了出现该角点的第一帧的id，
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;feature_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start_frame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;vector&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FeaturePerFrame&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;feature_per_frame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;	
+    &lt;span class=&#34;n&#34;&gt;vector&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FeaturePerFrame&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;feature_per_frame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;// FeaturePerFrame的定义
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;FeaturePerFrame&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;c1&#34;&gt;// 保存了归一化坐标，图像坐标以及深度	
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// 保存了归一化坐标，图像坐标以及深度    
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;Vector3d&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;point&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;Vector2d&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;uv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;double&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;z&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -1442,16 +1476,12 @@ Cadena等人认为。&lt;/p&gt;
         <description>
 
 &lt;p&gt;&lt;strong&gt;自动驾驶相关公司：&lt;/strong&gt;
-&lt;div style=&#34;text-align:center&#34;&gt;
-    &lt;img src=&#34;https://qingsimon.github.io/img/自动驾驶相关公司.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;
-&lt;/div&gt;&lt;/p&gt;
+&lt;img src=&#34;https://qingsimon.github.io/img/自动驾驶相关公司.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
 
 &lt;p&gt;图片来源&lt;a href=&#34;http://www.prweb.com/releases/vsi/segmentsautonomousvehicle/prweb13472308.htm&#34; target=&#34;_blank&#34;&gt;Segmenting the Autonomous Vehicle Value Chain: A Look at Who is in the “Driverless&amp;rdquo; Seat&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;自动驾驶专利相关数量：&lt;/strong&gt;
-&lt;div style=&#34;text-align:center&#34;&gt;
-    &lt;img src=&#34;https://qingsimon.github.io/img/autonomous_driving_patents.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;
-&lt;/div&gt;&lt;/p&gt;
+&lt;img src=&#34;https://qingsimon.github.io/img/autonomous_driving_patents.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
 
 &lt;p&gt;图片来源&lt;a href=&#34;https://www.statista.com/chart/10879/autonomous-driving-patents/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://www.statista.com/chart/10879/autonomous-driving-patents/&#34;&gt;https://www.statista.com/chart/10879/autonomous-driving-patents/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -1552,14 +1582,18 @@ Cadena等人认为。&lt;/p&gt;
 &lt;a href=&#34;https://zhuanlan.zhihu.com/p/37866364&#34; target=&#34;_blank&#34;&gt;多传感器前融合&lt;/a&gt;对Roadstar的传感器前融合技术DeepFusion有较为详细的介绍。
 另外，RoadStar在宣讲中还提到了一点，他们正在自己做激光雷达。&lt;/p&gt;
 
+&lt;p&gt;&amp;mdash;&amp;mdash; 2019年3月30日更新 &amp;mdash;&amp;mdash;
+&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247517826&amp;idx=1&amp;sn=03b5cba3b7d2027bfc97b3c324a9aaaa&amp;chksm=e8d031f0dfa7b8e6d7c71524956a0cf88c7280eb32db68474324c4d997c70aa6faa79b277dae&amp;mpshare=1&amp;scene=1&amp;srcid=0330dgOZj2rjEVTKkqzHEn5G#rd&#34; target=&#34;_blank&#34;&gt;第一家倒下的无人车公司：去年创下融资记录，如今死于内讧，终结于投资方逼宫&lt;/a&gt;，看到这条消息的时候，真的是一言难尽。去年我跟着师兄去听了他们的秋招宣讲会，第一次了解到这个公司，当时好像是刚刚在北京这边设了分部，感觉是要扩张的样子，谁能想到今年竟然会是这样一个结局。自动驾驶虽然没有炒得那么火了，但是也还没破灭啊。哎，给人一种风还在，猪却莫名奇妙没了的感觉。&lt;/p&gt;
+
 &lt;h3 id=&#34;deepmotion&#34;&gt;DeepMotion&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.deepmotion.ai/&#34; target=&#34;_blank&#34;&gt;DeepMotion&lt;/a&gt;是为自动驾驶提供众包高精度地图解决方案的公司，提供10厘米级别的三位语义地图及定位。&lt;/p&gt;
 
-&lt;h3 id=&#34;文远知行weride&#34;&gt;文远知行WeRide&lt;/h3&gt;
+&lt;h3 id=&#34;weride&#34;&gt;WeRide&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://jingchi.ai/&#34; target=&#34;_blank&#34;&gt;WeRide&lt;/a&gt;
-2019年3月28日参加了WeRide在我们学校的一场讲座。
+&lt;p&gt;&lt;a href=&#34;http://jingchi.ai/&#34; target=&#34;_blank&#34;&gt;WeRide&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;2019年3月28日参加了WeRide在我们学校的一场讲座。
 总结印象比较深的几点：
 1. WeRide还是以激光雷达为主，做L4级别的自动架势，摄像头等其它传感器为辅，多传感器融合。&lt;/p&gt;
 
@@ -1686,6 +1720,12 @@ Cadena等人认为。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.sohu.com/a/202385620_335896&#34; target=&#34;_blank&#34;&gt;第14家图商名落滴滴，甲级导航地图资质已放开？&lt;/a&gt;&lt;/p&gt;
 
+&lt;h3 id=&#34;宽凳科技&#34;&gt;宽凳科技&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.kuandeng.com/html/1/index.html&#34; target=&#34;_blank&#34;&gt;宽凳科技&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://baijiahao.baidu.com/s?id=1629347763640968320&amp;wfr=spider&amp;for=pc&amp;isFailFlag=1&amp;from=timeline&amp;isappinstalled=0&#34; target=&#34;_blank&#34;&gt;精无止境 宽凳科技召开大规模全自动高精地图技术发布会&lt;/a&gt;，从这条新闻的消息来看，宽凳科技在2019年1月获得了“导航电子地图甲级资质”。&lt;/p&gt;
+
 &lt;h2 id=&#34;国外公司-2&#34;&gt;国外公司&lt;/h2&gt;
 
 &lt;h3 id=&#34;here&#34;&gt;Here&lt;/h3&gt;
@@ -1697,14 +1737,15 @@ Cadena等人认为。&lt;/p&gt;
 &lt;h1 id=&#34;车载芯片&#34;&gt;车载芯片&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;AI芯片相关公司：&lt;/strong&gt;
-&lt;div style=&#34;text-align:center&#34;&gt;
-    &lt;img src=&#34;https://qingsimon.github.io/img/AI芯片相关公司.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;
-&lt;/div&gt;
-根据Compass Intelligence对全球100多家AI芯片企业进行的排名显示，华为海思（HiSilicon）位列榜单第12名，联发科（Media Tek）位列第14名，Imagination位列第15名，瑞芯微（Rockchip）位列第20名，芯原（Verisilcon）位列第21名，寒武纪（combricon）位列第23名，地平线机器人（Horizon Robotics）位列第24名。&lt;/p&gt;
+&lt;img src=&#34;https://qingsimon.github.io/img/AI芯片相关公司.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;根据Compass Intelligence对全球100多家AI芯片企业进行的排名显示，华为海思（HiSilicon）位列榜单第12名，联发科（Media Tek）位列第14名，Imagination位列第15名，瑞芯微（Rockchip）位列第20名，芯原（Verisilcon）位列第21名，寒武纪（combricon）位列第23名，地平线机器人（Horizon Robotics）位列第24名。&lt;/p&gt;
 
 &lt;h2 id=&#34;地平线机器人&#34;&gt;地平线机器人&lt;/h2&gt;
 
 &lt;p&gt;地平线自动驾驶计算平台Matrix，以及征程2.0芯片。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzA5OTM0NjcxOQ==&amp;mid=2651494615&amp;idx=2&amp;sn=c452c03a83b9e3e0aefcf2840cf7c2d3&amp;chksm=8b7d88a7bc0a01b12182828d51e956f395c25c01fc3429e76ddf057ee07467e31270037d2df7&amp;mpshare=1&amp;scene=1&amp;srcid=0114xHqZSP8NKMI1RW08xfZ9#rd&#34; target=&#34;_blank&#34;&gt;用摄像头做 3D 点云，地平线发布众包高精地图采集方案&lt;/a&gt;&lt;/p&gt;
 </description>
       
     </item>
