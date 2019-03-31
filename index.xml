@@ -24,6 +24,85 @@
     </item>
     
     <item>
+      <title>GCNv2 基于深度学习的特征和描述子</title>
+      <link>https://qingsimon.github.io/post/2019-03-30-gcnv2-%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%89%B9%E5%BE%81%E5%92%8C%E6%8F%8F%E8%BF%B0%E5%AD%90/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-30-gcnv2-%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%89%B9%E5%BE%81%E5%92%8C%E6%8F%8F%E8%BF%B0%E5%AD%90/</guid>
+      
+        <description>&lt;p&gt;&lt;img src=&#34;https://qingsimon.github.io/img/GCNv2_feature.png&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;GCNv2: Efficient Correspondence Prediction for Real-Time SLAM, J. Tang, L. Ericson, J. Folkesson and P. Jensfelt, in arXiv:1902.11046, 2019&lt;/p&gt;
+
+&lt;h1 id=&#34;摘要&#34;&gt;摘要&lt;/h1&gt;
+
+&lt;p&gt;GCNv2是对GCN（Geometric Correspondence Network）的改进，是一种能够计算图像关键点和描述子的深度神经网络，可以用于作为实时SLAM的前端。GCNv2采用了ORB相同格式的二进制描述子，这样它就能够比较容易的替换ORB-SLAM2中的ORB描述子。实验表明，GCNv2在精度上与GCN保持相当，能满足实时性要求（以Jetsom TX2为平台），在无人机上的实验展示了其鲁棒性。&lt;/p&gt;
+
+&lt;h1 id=&#34;概述&#34;&gt;概述&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;GCNv2保持了与GCN相当的精度&lt;/strong&gt;，相比于其它基于深度学习的特征提取方法，以及传统的特征提取方法，GCNv2能够为运动估计提供较大的性能提升。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;GCNv2在GCN的基础上提高了计算效率，能够在类似于Jetson TX2这样的嵌入式平台上real-time inference，而GCN则需要desktop GPU才能实现&lt;strong&gt;real-time inference&lt;/strong&gt;。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;GCNv2采用了&lt;strong&gt;和ORB相同格式的二进制描述子&lt;/strong&gt;，使得它可以很方便地替换现有SLAM系统（比如ORB-SLAM2，SVO2）前端中的特征提取器。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;设计了使用GCNv2的SLAM系统GCN-SLAM，用于无人机的实时控制。并且与ORB-SLAM2进行对比，实验结果表明，&lt;strong&gt;GCN-SLAM2能够处理ORB-SLAM2失效的场景&lt;/strong&gt;。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;gcnv2&#34;&gt;GCNv2&lt;/h1&gt;
+
+&lt;h2 id=&#34;网络结构&#34;&gt;网络结构&lt;/h2&gt;
+
+&lt;p&gt;原始的GCN网络结构，主要由两部分组成：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;用ResNet-50作为backbone的FCN。FCN用来完成稠密特征提取（dense feature extraction）。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;一个双向卷积网络（bidirectional convolutional network），用来完成时序关键点预测（temporal keypoint prediction）。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;原始的GCN网络存在两个问题：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;相比于现有模型，GCN虽然展现出了impressive的跟踪性能，但是把它用在运行于资源有限的硬件平台上的实时SLAM系统上还存在一些问题。GCN需要比较强劲的运算资源以实现实时性，它无法在类似于Jetson TX2这样的嵌入式平台上运行。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;双向网络结构，要求在两帧或更多帧之间同时完成匹配，这会极大增加基于滑动窗口的SLAM系统的计算复杂度，因为关键帧会根据当前相机位置动态更新（？？？这是什么逻辑，没想明白？？？）。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;GCNv2的网络结构设计，受到了SuperPoint的启发。SuperPoint使用单帧图像进行检测，GCNv2采用了比SuperPoint参数更少和尺度更小（lower scale）的网络，直白一点，GCNv2在原图中每个16x16 pexels的栅格中进行预测。GCNv2中所有的池化层用kernel size 4x4、stride 2 和 padding 1的卷积层替代。&lt;/p&gt;
+
+&lt;p&gt;网络的详细结构可见源码&lt;a href=&#34;https://github.com/jiexiong2016/GCNv2_SLAM&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://github.com/jiexiong2016/GCNv2_SLAM&#34;&gt;https://github.com/jiexiong2016/GCNv2_SLAM&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;目标函数&#34;&gt;目标函数&lt;/h2&gt;
+
+&lt;h2 id=&#34;数据集&#34;&gt;数据集&lt;/h2&gt;
+
+&lt;p&gt;原始GCN的训练，使用了TUM中fr2的数据，TUM通过运动捕捉系统提供了精确的位姿。
+GCNv2使用了SUN-3D的一个子集进行训练，由于SUN-3D的ground truth pose是通过带回环的视觉跟踪估计出来的，它有着较高的全局精度（accurate globally），但是在frame level上有误差（misalignment），为了处理局部误差，对图像对提取SIFT特征，将之前得到的位姿作为初始位姿进行BA，来更新图像对之间的相对位姿。从这个意义上讲，GCNv2的训练仅仅使用了自标注的视觉信息数据（self-annotated data with only vision information）。&lt;/p&gt;
+
+&lt;h2 id=&#34;训练方法&#34;&gt;训练方法&lt;/h2&gt;
+
+&lt;h1 id=&#34;gcn-slam&#34;&gt;GCN-SLAM&lt;/h1&gt;
+
+&lt;p&gt;在基于特征点的SLAM系统设计中，特征提取器的选择是最重要的设计选择之一。
+本文在ORB-SLAM2的基础上进行修改，集成了GCNv2作为特征提取器。修改后的SLAM系统被称作GCN-SLAM。&lt;/p&gt;
+
+&lt;p&gt;GCN-SLAM可以在Jetson TX2上以20Hz运行，在Intel i7-7700HQ、NVIDIA 1070上以大约80Hz运行。简化版的网络GCNv2-tiny，从第二层起把特征图的数量减少了一半，速度更快，可以在TX2上达到40Hz。&lt;/p&gt;
+
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8260906&amp;isnumber=8214927&amp;tag=1&#34; target=&#34;_blank&#34;&gt;Geometric Correspondence Network for Camera Motion Estimation, J. Tang, J. Folkesson and P. Jensfelt, RA-L and ICRA 2018&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/pdf/1902.11046.pdf&#34; target=&#34;_blank&#34;&gt;GCNv2: Efficient Correspondence Prediction for Real-Time SLAM, J. Tang, L. Ericson, J. Folkesson and P. Jensfelt, in arXiv:1902.11046, 2019&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/60049140?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=55981878804480&#34; target=&#34;_blank&#34;&gt;GCNv2阅读笔记,用deep feature替代ORB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://arxiv.org/pdf/1712.07629v1.pdf&#34; target=&#34;_blank&#34;&gt;Detone D , Malisiewicz T , Rabinovich A . SuperPoint: Self-Supervised Interest Point Detection and Description[J]. 2017.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.csdn.net/prephet/article/details/81192057&#34; target=&#34;_blank&#34;&gt;笔记：SuperPoint: Self Supervised Interest Point Detection and Description 深度学习特征点检测&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>AR &amp; VR相关公司整理</title>
       <link>https://qingsimon.github.io/post/2019-03-30-ar--vr%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</link>
       <pubDate>Sat, 30 Mar 2019 00:00:00 +0000</pubDate>

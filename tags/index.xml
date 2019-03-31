@@ -57,6 +57,15 @@
     </item>
     
     <item>
+      <title>Deep Learning Feature</title>
+      <link>https://qingsimon.github.io/tags/deep-learning-feature/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/tags/deep-learning-feature/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hd Map</title>
       <link>https://qingsimon.github.io/tags/hd-map/</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
@@ -89,6 +98,15 @@
       <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://qingsimon.github.io/tags/orb-slam2-monocular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Paper Reading</title>
+      <link>https://qingsimon.github.io/tags/paper-reading/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/tags/paper-reading/</guid>
       <description></description>
     </item>
     
@@ -158,7 +176,7 @@
     <item>
       <title>Vslam</title>
       <link>https://qingsimon.github.io/tags/vslam/</link>
-      <pubDate>Fri, 01 Mar 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://qingsimon.github.io/tags/vslam/</guid>
       <description></description>
@@ -170,24 +188,6 @@
       <pubDate>Fri, 28 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>传感器融合</title>
-      <link>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/</link>
-      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://qingsimon.github.io/tags/%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>即时定位与地图构建</title>
-      <link>https://qingsimon.github.io/tags/%E5%8D%B3%E6%97%B6%E5%AE%9A%E4%BD%8D%E4%B8%8E%E5%9C%B0%E5%9B%BE%E6%9E%84%E5%BB%BA/</link>
-      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://qingsimon.github.io/tags/%E5%8D%B3%E6%97%B6%E5%AE%9A%E4%BD%8D%E4%B8%8E%E5%9C%B0%E5%9B%BE%E6%9E%84%E5%BB%BA/</guid>
       <description></description>
     </item>
     

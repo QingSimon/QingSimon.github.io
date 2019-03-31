@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paper Reading on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/paper-reading/</link>
+    <description>Recent content in Paper Reading on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 31 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GCNv2 基于深度学习的特征和描述子</title>
+      <link>https://qingsimon.github.io/post/2019-03-30-gcnv2-%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%89%B9%E5%BE%81%E5%92%8C%E6%8F%8F%E8%BF%B0%E5%AD%90/</link>
+      <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-03-30-gcnv2-%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%89%B9%E5%BE%81%E5%92%8C%E6%8F%8F%E8%BF%B0%E5%AD%90/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://qingsimon.github.io/img/GCNv2_feature.png&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;GCNv2: Efficient Correspondence Prediction for Real-Time SLAM, J. Tang, L. Ericson, J. Folkesson and P. Jensfelt, in arXiv:1902.11046, 2019&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
