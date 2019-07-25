@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>最优估计理论 on 伟锅的博客</title>
+    <link>https://qingsimon.github.io/tags/%E6%9C%80%E4%BC%98%E4%BC%B0%E8%AE%A1%E7%90%86%E8%AE%BA/</link>
+    <description>Recent content in 最优估计理论 on 伟锅的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://qingsimon.github.io/tags/%E6%9C%80%E4%BC%98%E4%BC%B0%E8%AE%A1%E7%90%86%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>卡尔曼滤波概述</title>
+      <link>https://qingsimon.github.io/post/2019-04-14-%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-04-14-%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E6%A6%82%E8%BF%B0/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://qingsimon.github.io/img/kalmanfilter1.jpg&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

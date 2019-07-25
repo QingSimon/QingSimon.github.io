@@ -63,7 +63,7 @@
 <meta property="og:description" content="伟锅的博客" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://qingsimon.github.io/" />
-<meta property="og:updated_time" content="2019-01-11T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2019-02-22T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="伟锅的博客">
 <meta itemprop="description" content="伟锅的博客">
@@ -82,7 +82,16 @@
 <![endif]-->
 
 
-
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+      displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+      processEscapes: true,
+    },
+    TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
 
 </head>
 <body>
@@ -330,6 +339,42 @@
   <header class="post-header">
     <h1 class="post-title">
       
+      <a class="post-link" href="/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/">ORB-SLAM2 Monocular（一）代码逻辑</a>
+    </h1>
+    
+    <div class="post-meta">
+      <time datetime="2019-02-22" class="post-time">
+        2019-02-22
+      </time>
+      <div class="post-category">
+          <a href="https://qingsimon.github.io/categories/orb-slam2-monocular/"> ORB-SLAM2 Monocular </a>
+          
+        </div>
+      <span class="more-meta"> 38 words </span>
+      <span class="more-meta"> 1 min read </span>
+      
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      参考资料 ORB-SLAM2详解（一）简介 ORB-SLAM2详解（二）代码逻辑
+    </div>
+    <div class="read-more">
+      <a href="/post/2019-02-22-orb-slam2-monocular%E4%B8%80%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91/" class="read-more-link">Read more</a>
+    </div>
+    
+  </div>
+</article>
+
+    
+      <article class="post bg-white">
+  <header class="post-header">
+    <h1 class="post-title">
+      
       <a class="post-link" href="/post/2019-01-11-vins-mono%E4%B8%89imu%E9%A2%84%E7%A7%AF%E5%88%86/">VINS-Mono（三）IMU预积分</a>
     </h1>
     
@@ -464,41 +509,6 @@
     </div>
     <div class="read-more">
       <a href="/post/2018-12-28-android%E6%89%8B%E6%9C%BA%E7%9B%B8camera%E5%92%8Cimu%E7%9A%84%E6%A0%87%E5%AE%9A/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-    
-      <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/post/2018-12-17-android%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/">Android开发学习</a>
-    </h1>
-    
-    <div class="post-meta">
-      <time datetime="2018-12-17" class="post-time">
-        2018-12-17
-      </time>
-      <div class="post-category">
-          
-        </div>
-      <span class="more-meta"> 358 words </span>
-      <span class="more-meta"> 1 min read </span>
-      
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      Android Studio Android Studio是google基于IntelliJ IDEA打造的Android开发环境。 JDK JDK（Java Development Kit），Java运行环境、一
-    </div>
-    <div class="read-more">
-      <a href="/post/2018-12-17-android%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/" class="read-more-link">Read more</a>
     </div>
     
   </div>
@@ -647,6 +657,13 @@
 
 <script type="text/javascript" src="/js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
 
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 
 

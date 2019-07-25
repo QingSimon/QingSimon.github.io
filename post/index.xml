@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 伟锅的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 31 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qingsimon.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>卡尔曼滤波概述</title>
+      <link>https://qingsimon.github.io/post/2019-04-14-%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-04-14-%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E6%A6%82%E8%BF%B0/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://qingsimon.github.io/img/kalmanfilter1.jpg&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>GCNv2 基于深度学习的特征和描述子</title>

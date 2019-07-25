@@ -24,6 +24,80 @@
     </item>
     
     <item>
+      <title>卡尔曼滤波概述</title>
+      <link>https://qingsimon.github.io/post/2019-04-14-%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Sun, 14 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://qingsimon.github.io/post/2019-04-14-%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E6%A6%82%E8%BF%B0/</guid>
+      
+        <description>&lt;p&gt;&lt;img src=&#34;https://qingsimon.github.io/img/kalmanfilter1.jpg&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;卡尔曼滤波的由来&#34;&gt;卡尔曼滤波的由来&lt;/h1&gt;
+
+&lt;h1 id=&#34;卡尔曼滤波的应用&#34;&gt;卡尔曼滤波的应用&lt;/h1&gt;
+
+&lt;p&gt;卡尔曼滤波最为人们津津乐道的应用，便是用于了将阿姆斯特朗送上月球的阿波罗飞船的导航计算机。&lt;/p&gt;
+
+&lt;h1 id=&#34;经典卡尔曼滤波&#34;&gt;经典卡尔曼滤波&lt;/h1&gt;
+
+&lt;h2 id=&#34;小车的一维定位问题&#34;&gt;小车的一维定位问题&lt;/h2&gt;
+
+&lt;p&gt;考虑一个小车的一维定位问题：
+&lt;img src=&#34;https://qingsimon.github.io/img/kalmanfilter2.png&#34; width=&#34;800&#34;/&gt;
+如上图所示，小车在一条直线上向右匀速行驶，在左侧定义了一个坐标原点，并在坐标原点出架设了一套测量装置，测量装置没隔一定的时间间隔就对小车离原点的位置和速度进行测量。定义描述小车状态的的状态向量&lt;/p&gt;
+
+&lt;h2 id=&#34;经典卡尔曼滤波的数学抽象&#34;&gt;经典卡尔曼滤波的数学抽象&lt;/h2&gt;
+
+&lt;h2 id=&#34;前提假设&#34;&gt;前提假设&lt;/h2&gt;
+
+&lt;h2 id=&#34;公式推导&#34;&gt;公式推导&lt;/h2&gt;
+
+&lt;p&gt;预测：&lt;/p&gt;
+
+&lt;p&gt;$$
+x^{\prime}=F x+u
+$$&lt;/p&gt;
+
+&lt;p&gt;$$
+P^{\prime}=F P F^{T}+Q
+$$&lt;/p&gt;
+
+&lt;p&gt;观测更新：
+$$
+y=z-H x^{\prime}
+$$&lt;/p&gt;
+
+&lt;p&gt;$$
+S=H P^{\prime} H^{T}+R
+$$&lt;/p&gt;
+
+&lt;p&gt;$$
+K=P^{\prime} H^{T} S^{-1}
+$$&lt;/p&gt;
+
+&lt;p&gt;$$
+x=x^{\prime}+K y
+$$&lt;/p&gt;
+
+&lt;p&gt;$$
+P=(I-K H) P^{\prime}
+$$&lt;/p&gt;
+
+&lt;h1 id=&#34;经典卡尔曼滤波的局限性&#34;&gt;经典卡尔曼滤波的局限性&lt;/h1&gt;
+
+&lt;h1 id=&#34;扩展卡尔曼滤波-extended-kalman-filter&#34;&gt;扩展卡尔曼滤波（extended Kalman filter）&lt;/h1&gt;
+
+&lt;h1 id=&#34;误差状态卡尔曼滤波-error-state-kalman-filter&#34;&gt;误差状态卡尔曼滤波（error state kalman filter）&lt;/h1&gt;
+
+&lt;h1 id=&#34;无迹卡尔曼滤波-unscented-kalman-filter&#34;&gt;无迹卡尔曼滤波（unscented Kalman filter）&lt;/h1&gt;
+
+&lt;h1 id=&#34;粒子滤波&#34;&gt;粒子滤波&lt;/h1&gt;
+
+&lt;h1 id=&#34;参考资料&#34;&gt;参考资料&lt;/h1&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>GCNv2 基于深度学习的特征和描述子</title>
       <link>https://qingsimon.github.io/post/2019-03-30-gcnv2-%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%89%B9%E5%BE%81%E5%92%8C%E6%8F%8F%E8%BF%B0%E5%AD%90/</link>
       <pubDate>Sun, 31 Mar 2019 00:00:00 +0000</pubDate>
@@ -1541,290 +1615,6 @@ Cadena等人认为。&lt;/p&gt;
 &lt;p&gt;目前主流的高精度地图数据采集主要包括以Mobileye为代表的众包模式和以Google、高德为代表的集中制图模式。&lt;/p&gt;
 
 &lt;h2 id=&#34;静态高精度地图-动态高精度地图&#34;&gt;静态高精度地图 + 动态高精度地图&lt;/h2&gt;
-</description>
-      
-    </item>
-    
-    <item>
-      <title>自动驾驶相关公司整理</title>
-      <link>https://qingsimon.github.io/post/2018-09-25-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</link>
-      <pubDate>Tue, 25 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://qingsimon.github.io/post/2018-09-25-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E5%85%AC%E5%8F%B8%E6%95%B4%E7%90%86/</guid>
-      
-        <description>
-
-&lt;p&gt;&lt;strong&gt;自动驾驶相关公司：&lt;/strong&gt;
-&lt;img src=&#34;https://qingsimon.github.io/img/自动驾驶相关公司.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
-
-&lt;p&gt;图片来源&lt;a href=&#34;http://www.prweb.com/releases/vsi/segmentsautonomousvehicle/prweb13472308.htm&#34; target=&#34;_blank&#34;&gt;Segmenting the Autonomous Vehicle Value Chain: A Look at Who is in the “Driverless&amp;rdquo; Seat&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;自动驾驶专利相关数量：&lt;/strong&gt;
-&lt;img src=&#34;https://qingsimon.github.io/img/autonomous_driving_patents.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
-
-&lt;p&gt;图片来源&lt;a href=&#34;https://www.statista.com/chart/10879/autonomous-driving-patents/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://www.statista.com/chart/10879/autonomous-driving-patents/&#34;&gt;https://www.statista.com/chart/10879/autonomous-driving-patents/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;从自动驾驶相关专利数量来看，传统车企是闷声发大财。这些传统车企资金雄厚，积淀了很多年的口碑，控制着供应和销售的渠道，如果自动驾驶真的在未来有所作为的话，它似乎也革不了这些传统车企的命，现在的自动驾驶初创公司也积极抱紧这些大腿，寻求与它们的合作。&lt;/p&gt;
-
-&lt;p&gt;实际上现在的自动驾驶公司要么积极寻求与车企和供应商的合作，要么被它们收购。
-合作：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://techcrunch.com/2017/05/16/bmw-intel-and-mobileye-bring-delphi-in-on-their-self-driving-platform/&#34; target=&#34;_blank&#34;&gt;BMW + Intel + Mobileye + Delphi&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://autoweek.com/article/autonomous-cars/volvo-continues-support-uber-after-its-self-driving-accident&#34; target=&#34;_blank&#34;&gt;Volvo + Uber&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;收购：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.autosphere.ca/collisionmanagement/collision-news/2017/02/14/ford-investing-argo-ai/&#34; target=&#34;_blank&#34;&gt;Ford + Argo&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://www.cheyun.com/content/9894&#34; target=&#34;_blank&#34;&gt;GM + Cruise&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;车厂和零部件供应商&#34;&gt;车厂和零部件供应商&lt;/h1&gt;
-
-&lt;h2 id=&#34;国内公司&#34;&gt;国内公司&lt;/h2&gt;
-
-&lt;h3 id=&#34;陕汽集团&#34;&gt;陕汽集团&lt;/h3&gt;
-
-&lt;p&gt;与图森未来合作&lt;/p&gt;
-
-&lt;h3 id=&#34;广汽集团&#34;&gt;广汽集团&lt;/h3&gt;
-
-&lt;p&gt;与小马智行合作&lt;/p&gt;
-
-&lt;h3 id=&#34;上汽&#34;&gt;上汽&lt;/h3&gt;
-
-&lt;h2 id=&#34;国外公司&#34;&gt;国外公司&lt;/h2&gt;
-
-&lt;h3 id=&#34;博世-bosch&#34;&gt;博世（Bosch）&lt;/h3&gt;
-
-&lt;h3 id=&#34;奥迪-audi&#34;&gt;奥迪（Audi）&lt;/h3&gt;
-
-&lt;h3 id=&#34;continental&#34;&gt;Continental&lt;/h3&gt;
-
-&lt;p&gt;德国大陆集团（Continental AG），创始于1871年，是世界先进的汽车配套产品供应商之一。&lt;/p&gt;
-
-&lt;h3 id=&#34;福特-ford&#34;&gt;福特（Ford）&lt;/h3&gt;
-
-&lt;p&gt;2017年2月，福特对Argo投资了10亿美元。&lt;/p&gt;
-
-&lt;h3 id=&#34;通用汽车-gm&#34;&gt;通用汽车（GM）&lt;/h3&gt;
-
-&lt;p&gt;通用在2016年1月投资5亿美元给Lyft（美国第二大移动出行公司），此后在2016年3月收购了无人驾驶初创企业Cruise，Cruise会作为通用的一个独立部门而存在。&lt;/p&gt;
-
-&lt;h3 id=&#34;宝马-bmw&#34;&gt;宝马（BMW）&lt;/h3&gt;
-
-&lt;h3 id=&#34;丰田-toyota&#34;&gt;丰田（Toyota）&lt;/h3&gt;
-
-&lt;h3 id=&#34;大众-volkswagen&#34;&gt;大众（Volkswagen）&lt;/h3&gt;
-
-&lt;h3 id=&#34;戴姆勒-daimler&#34;&gt;戴姆勒（Daimler）&lt;/h3&gt;
-
-&lt;h3 id=&#34;沃尔沃-volvo&#34;&gt;沃尔沃（Volvo）&lt;/h3&gt;
-
-&lt;h3 id=&#34;delphi&#34;&gt;Delphi&lt;/h3&gt;
-
-&lt;p&gt;可能很多人都不知道Delphi是一家什么公司，反正我一开始是没听说过的。Delphi是一家历史久远的汽车零部件供应商&lt;/p&gt;
-
-&lt;h3 id=&#34;tesla&#34;&gt;Tesla&lt;/h3&gt;
-
-&lt;p&gt;Tesla算是新兴的车厂。&lt;/p&gt;
-
-&lt;h1 id=&#34;自动驾驶解决方案与服务提供商&#34;&gt;自动驾驶解决方案与服务提供商&lt;/h1&gt;
-
-&lt;h2 id=&#34;国内公司-1&#34;&gt;国内公司&lt;/h2&gt;
-
-&lt;h3 id=&#34;地平线&#34;&gt;地平线&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.horizon.ai/&#34; target=&#34;_blank&#34;&gt;地平线&lt;/a&gt;总给我一种Mobileye的感觉，他们在搞芯片，我觉的似乎是对标Mobileye的EyeQ系列芯片。&lt;/p&gt;
-
-&lt;h3 id=&#34;图森未来&#34;&gt;图森未来&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.tusimple.com/index.html&#34; target=&#34;_blank&#34;&gt;图森未来&lt;/a&gt;成立于2015年，2015年9月完成A轮5000万人民币融资，2017年3月与陕汽集团达成战略合作伙伴关系。2017年8月完成来自新浪、英伟达和治平资本的共计2300万美元的B轮融资。&lt;/p&gt;
-
-&lt;p&gt;2018年9月，我听了一个图森未来的知乎LIVE，似乎图森未来自己在做摄像头，使得无人货车夜间也能在港口工作。图森未来以商用卡车作为切入点，在封闭环境和限定场景下，有望率先将自动驾驶应用落地，按照他们的说法，他们已经有收入了。&lt;/p&gt;
-
-&lt;h3 id=&#34;momenta&#34;&gt;Momenta&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.momenta.cn/&#34; target=&#34;_blank&#34;&gt;Momenta&lt;/a&gt;成立于2016年&lt;/p&gt;
-
-&lt;h3 id=&#34;小马智行-pony-ai&#34;&gt;小马智行（pony.ai）&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.pony.ai/zh/&#34; target=&#34;_blank&#34;&gt;小马智行（pony.ai）&lt;/a&gt;2016年12月成立，2018年1月宣布完成1.12亿美元A轮融资，2018年2月与广汽集团签订战略合作协议。&lt;/p&gt;
-
-&lt;h3 id=&#34;roadstar-ai&#34;&gt;Roadstar.ai&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://roadstar.ai/&#34; target=&#34;_blank&#34;&gt;Roadstar.ai&lt;/a&gt;的2018年的招聘宣讲会我听过一次，印象比较深的就是他们很强调传感器在时间和空间上的高精度同步，他们还展示了传感器前融合的技术DeepFusion，即在原始数据层面的融合（其实我是懵b的）。
-&lt;a href=&#34;https://zhuanlan.zhihu.com/p/37866364&#34; target=&#34;_blank&#34;&gt;多传感器前融合&lt;/a&gt;对Roadstar的传感器前融合技术DeepFusion有较为详细的介绍。
-另外，RoadStar在宣讲中还提到了一点，他们正在自己做激光雷达。&lt;/p&gt;
-
-&lt;p&gt;&amp;mdash;&amp;mdash; 2019年3月30日更新 &amp;mdash;&amp;mdash;
-&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247517826&amp;idx=1&amp;sn=03b5cba3b7d2027bfc97b3c324a9aaaa&amp;chksm=e8d031f0dfa7b8e6d7c71524956a0cf88c7280eb32db68474324c4d997c70aa6faa79b277dae&amp;mpshare=1&amp;scene=1&amp;srcid=0330dgOZj2rjEVTKkqzHEn5G#rd&#34; target=&#34;_blank&#34;&gt;第一家倒下的无人车公司：去年创下融资记录，如今死于内讧，终结于投资方逼宫&lt;/a&gt;，看到这条消息的时候，真的是一言难尽。去年我跟着师兄去听了他们的秋招宣讲会，第一次了解到这个公司，当时好像是刚刚在北京这边设了分部，感觉是要扩张的样子，谁能想到今年竟然会是这样一个结局。自动驾驶虽然没有炒得那么火了，但是也还没破灭啊。哎，给人一种风还在，猪却莫名奇妙没了的感觉。&lt;/p&gt;
-
-&lt;h3 id=&#34;deepmotion&#34;&gt;DeepMotion&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.deepmotion.ai/&#34; target=&#34;_blank&#34;&gt;DeepMotion&lt;/a&gt;是为自动驾驶提供众包高精度地图解决方案的公司，提供10厘米级别的三位语义地图及定位。&lt;/p&gt;
-
-&lt;h3 id=&#34;weride&#34;&gt;WeRide&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://jingchi.ai/&#34; target=&#34;_blank&#34;&gt;WeRide&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;2019年3月28日参加了WeRide在我们学校的一场讲座。
-总结印象比较深的几点：
-1. WeRide还是以激光雷达为主，做L4级别的自动架势，摄像头等其它传感器为辅，多传感器融合。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;WeRide获得了雷诺日产三菱联盟的投资。WeRide用雷诺日产三菱联盟类比通用，用自己类别Cruise，简单来说就是要做中国的Cruise。汽车的底层控制技术和控制技术，是车厂的核心技术，所以对一些自动驾驶公司来说，抱紧车厂的大腿就比较重要。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;WeRide用日产的leaf电车为平台进行改装。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;高精度的军用红外摄像头质量很好，可以考虑加到无人车的传感器系统中。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;城市级别的高精度地图放在车端是没有问题，而且也需要放在车端，因为放在云端的话，以目前的通信技术来说，延迟还比较大，也不稳定。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;车载传感器的自动化标定（好像是在云台上转一圈，传感器的内外参就标定好了）。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;传感器系统的时间同步很重要。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;多传感器数据的融合分为前融合和后融合，前融合效果应该是最好的。在后融合中会加入概率模型，以应对某些来源的传感器信息失效，以及多传感器信息之间的冲突问题。数据融合可以考虑用FPGA做融合（为啥用FPGA？FPGA有啥优势？）。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Cruise被通用巨额收购可能是刺激自动驾驶行业爆发的一个因素。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;短期内自动驾驶只能在限定场景和限定路线下运行，慢慢等到道路等交通设施的改变（车路协同，v2x）、法律法规的跟进，以及大众的观念改变以及一些伦理问题逐渐被解决。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;目前做自动驾驶，是先算法、后产品。即使是产品，路线也会是先商用，而不是像传统汽车一样成为大众消费品。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;除了不造车，自动驾驶中设计到的所有软件系统，WeRide都做，也有做自研传感器的计划。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;毫米波雷达测速，对速度很敏感，但是分辨率很低。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;特殊场景比如失效、故障等，可以通过网络远程控制。WeRide还和联通合作了5G，用于对车辆的远程接管控制。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;WeRide的高清地图还以RTK定位+激光雷达点云采集为主，我的理解就是，还是以激光雷达为主。地图分两个层级，一层是点云地图（说是激光雷达点云，应该也会用或者计划用visual slam做辅助吧？难道是纯激光雷达点云吗？没有视觉描述子信息吗？这一点 还不太清楚），几何地图用于定位。另一层是语义地图，包含的是结构化的信息，比如交通标志牌，车道线等。语义地图需要用半人工的方式进行标注，语义地图的作用是用于辅助决策。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;在无人车的控制方面，每辆车的物理特性都不尽相同，无人车的运行环境也会发生变化，所以需要采用自适应控制。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;我个人感觉，主讲人一直在传达一个观点：自动驾驶是一个系统工程，需要对感知、定位、决策和控制等系统进行集成和调试。无人驾驶的主要难度在于车队规模的扩大、运营和software infrastructure的建设。几十辆、几百辆、乃至成千上万辆的车队规模，对软件基础设施和运营能力的要求差别很大。无人驾驶不单单是一个技术问题，只是目前算法上并不成熟，所以大家的注意力都在算法上。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;无人驾驶相关公司粗暴来说可以划分为3类：车厂、算法（软件）公司、无人车队运营商。其它也包括一些垂直领域的公司，比如专门做高精度地图的公司。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;关于高精度地图的测绘资质。传统的测绘资质，比如导航电子地图甲级测绘资质，要想获取这个资质，需要专业测绘人几百人的要求，对于高精度地图，这种传统的资质要求可能过时了，需要制定新的测绘资质。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;WeRide今年在北京开始招人，应该会有一个扩张期，公司办公室好像在锦秋大厦。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;智加&#34;&gt;智加&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://plus.ai/cn/&#34; target=&#34;_blank&#34;&gt;智加&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;cidi&#34;&gt;CiDi&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://biz.jrj.com.cn/2018/04/19164324417362.shtml&#34; target=&#34;_blank&#34;&gt;物流自动驾驶汽车CIDI上路&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;西井科技&#34;&gt;西井科技&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.westwell-lab.com/&#34; target=&#34;_blank&#34;&gt;西井科技&lt;/a&gt;&lt;/p&gt;
-
-&lt;!-- 从新窗口中打开链接 --&gt;
-
-&lt;!-- ## &lt;a href=&#34;网址&#34; target=&#34;_blank&#34;&gt;显示字符&lt;/a&gt; --&gt;
-
-&lt;h2 id=&#34;国外公司-1&#34;&gt;国外公司&lt;/h2&gt;
-
-&lt;h3 id=&#34;mobileye&#34;&gt;mobileye&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.mobileye.com/&#34; target=&#34;_blank&#34;&gt;mobileye&lt;/a&gt;可谓是ADAS界的祖师爷了。&lt;/p&gt;
-
-&lt;p&gt;Mobileye由以色列希伯来大学的Amnon Shashua教授和Ziv Aviram于1999年创立。自创立之日起，Mobileye就将公司定位为开发和推广一个视觉系统，以协助驾驶员在驾驶过程中保障乘客安全和减少交通事故。由于起步早，经过多年积累，Mobileye在单目高级驾驶辅助系统（ADAS）的开发方面走在世界前列。公司提供芯片（EyeQ芯片）搭载系统和计算机视觉算法运行DAS客户端功能，如车道偏离警告（LDA），基于雷达视觉融合的车辆探测、前部碰撞警告（FCW），车距检测（HMW）、行人探测、智能前灯控制（IHC），交通标志识别（TSR），仅视觉自适应巡航控制（ACC）等。2017年3月3日，英特尔正式宣布，以每股63.54美元现金收购Mobileye，股权价值约为153亿美金。Mobile作为ADAS界的大佬，占据了汽车安全驾驶系统全球90%以上的市场份额。&lt;/p&gt;
-
-&lt;p&gt;Mobileye的CEO Shashua在CVPR2016上介绍了REM（Road Experience Management，道路管理系统），目前仍然是视觉高精度地图和定位（几乎）唯一的解决方案。REM可以实时更新高精地图信息，REM每公里产生的数据量为10kB，极大地降低了云端高精地图的更新成本。&lt;/p&gt;
-
-&lt;p&gt;Mobileye开发的EyeQ系列车载芯片，由意法半导体生产供应，EyeQ3就是第一代特斯拉Autopilot背后的大脑。&lt;/p&gt;
-
-&lt;p&gt;这两年间，Mobileye拉拢若干主机厂加入REM的联盟，将于今年推出EyeQ4，真正开始REM的量产之路。国内也不乏REM的追随者，如Momenta、DeepMotion等。Mobileye在2016年和2017年申请了一批sparse map、crowd sourcing、navigation相关的专利，内容大同小异。这些专利意在保护整个REM产品，覆盖全面，但技术细节很少提及。&lt;/p&gt;
-
-&lt;p&gt;2017年3月，英特尔用约153亿美元收购了Mobileye，要和英伟达刚正面。&lt;/p&gt;
-
-&lt;h3 id=&#34;waymo&#34;&gt;waymo&lt;/h3&gt;
-
-&lt;p&gt;说到&lt;a href=&#34;https://waymo.com/&#34; target=&#34;_blank&#34;&gt;waymo&lt;/a&gt;不得不提起DARPA Grand Challenge 2005，该赛事由美国国防部（United States Department of Defense）举办，受DARPA（Defense Advanced Research Projects Agency）资助，在2005年举办第二届。斯坦福人工智能实验室（the Stanford Artificial Intelligence Laboratory）的director Sebastian Thrun（他也是Google Street View的联合创始人）带领stanford的团队研发的自动驾驶汽车Stanley，赢得了DARPA Grand Challenge 2005，并获得了200万美元的奖金，后来Sebastian Thrun的团队被google收编。2009年，google开启了一项自动驾驶汽车计划，2016年，自动驾驶部门从google独立出来，成立了现在的waymo。&lt;/p&gt;
-
-&lt;h3 id=&#34;tesla-1&#34;&gt;tesla&lt;/h3&gt;
-
-&lt;h3 id=&#34;nutonomy&#34;&gt;NuTonomy&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.nutonomy.com/&#34; target=&#34;_blank&#34;&gt;Nutonomy&lt;/a&gt;成立于2013年，2016年8月，Nutonomy在新加坡开始提供robo-taxi服务。公司CTO Emilio Frazzoli在MIT的自动驾驶讲座&lt;a href=&#34;https://www.bilibili.com/video/av23594594/?p=7&#34; target=&#34;_blank&#34;&gt;中文字幕版视频&lt;/a&gt;和&lt;a href=&#34;https://www.bilibili.com/video/av18945043/?p=7&#34; target=&#34;_blank&#34;&gt;英文字幕版视频&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h3 id=&#34;aurora&#34;&gt;Aurora&lt;/h3&gt;
-
-&lt;p&gt;Sterling Anderson是Aurora的联合创始人，Anderson之前是Tesla自动驾驶团队的leader，带领团队成功开发和运作了Tesla的第一代、第二代自动驾驶汽车。Aurora成立于2016年12月，目前已经与大众和现代建立了商业合作。&lt;/p&gt;
-
-&lt;h3 id=&#34;uber-otto&#34;&gt;uber + otto&lt;/h3&gt;
-
-&lt;p&gt;2016年8月，uber用6.8亿美元收购otto，otto是一家做自动驾驶卡车的公司。&lt;/p&gt;
-
-&lt;h3 id=&#34;cruise&#34;&gt;Cruise&lt;/h3&gt;
-
-&lt;h3 id=&#34;autox&#34;&gt;AutoX&lt;/h3&gt;
-
-&lt;h1 id=&#34;图商&#34;&gt;图商&lt;/h1&gt;
-
-&lt;h2 id=&#34;国内公司-2&#34;&gt;国内公司&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;国内图商：&lt;/strong&gt;
-&lt;div style=&#34;text-align:center&#34;&gt;
-    &lt;img src=&#34;https://qingsimon.github.io/img/国内图商.png&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;
-&lt;/div&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;百度-长地万方&#34;&gt;百度 + 长地万方&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.csdn.net/article/a/2018-04-12/15945514&#34; target=&#34;_blank&#34;&gt;Apollo高精地图解析&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/30728273&#34; target=&#34;_blank&#34;&gt;从百度Apollo代码谈高精度地图&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;腾讯-科菱航睿&#34;&gt;腾讯 + 科菱航睿&lt;/h3&gt;
-
-&lt;h3 id=&#34;腾讯-四维图新&#34;&gt;腾讯 + 四维图新&lt;/h3&gt;
-
-&lt;h3 id=&#34;阿里-高德地图&#34;&gt;阿里 + 高德地图&lt;/h3&gt;
-
-&lt;h3 id=&#34;阿里-易图通&#34;&gt;阿里 + 易图通&lt;/h3&gt;
-
-&lt;h3 id=&#34;小米-凯立德&#34;&gt;小米 + 凯立德&lt;/h3&gt;
-
-&lt;h3 id=&#34;滴滴&#34;&gt;滴滴&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.sohu.com/a/202385620_335896&#34; target=&#34;_blank&#34;&gt;第14家图商名落滴滴，甲级导航地图资质已放开？&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;宽凳科技&#34;&gt;宽凳科技&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.kuandeng.com/html/1/index.html&#34; target=&#34;_blank&#34;&gt;宽凳科技&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://baijiahao.baidu.com/s?id=1629347763640968320&amp;wfr=spider&amp;for=pc&amp;isFailFlag=1&amp;from=timeline&amp;isappinstalled=0&#34; target=&#34;_blank&#34;&gt;精无止境 宽凳科技召开大规模全自动高精地图技术发布会&lt;/a&gt;，从这条新闻的消息来看，宽凳科技在2019年1月获得了“导航电子地图甲级资质”。&lt;/p&gt;
-
-&lt;h2 id=&#34;国外公司-2&#34;&gt;国外公司&lt;/h2&gt;
-
-&lt;h3 id=&#34;here&#34;&gt;Here&lt;/h3&gt;
-
-&lt;p&gt;Here前身为美国地图公司NAVTEQ，2008年诺基亚以81亿美元的价格收购NAVTEQ，并入自己的Here地图部门。2015年4月，诺基亚宣布剥离Here部门，吸引了宝马、奔驰、奥迪、Google、Uber、Facebook、百度、腾讯（联合四维图新）来竞标，最终宝马、奔驰、奥迪临时组成的联合体以28亿欧元全资收购Here，三家各占1/3的股权。Here地图数据覆盖约200个国家，超过4600万公里（这是个什么概念呢？2017年末，中国全国公路总里程477.35万公里，高速公路13.65万公里。其实我比较好奇，4600万公里，全世界有这么多公路吗？）。&lt;/p&gt;
-
-&lt;h3 id=&#34;tomtom&#34;&gt;TomTom&lt;/h3&gt;
-
-&lt;h1 id=&#34;车载芯片&#34;&gt;车载芯片&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;AI芯片相关公司：&lt;/strong&gt;
-&lt;img src=&#34;https://qingsimon.github.io/img/AI芯片相关公司.jpg&#34; alt=&#34;&#34; width=&#34;800&#34;/&gt;&lt;/p&gt;
-
-&lt;p&gt;根据Compass Intelligence对全球100多家AI芯片企业进行的排名显示，华为海思（HiSilicon）位列榜单第12名，联发科（Media Tek）位列第14名，Imagination位列第15名，瑞芯微（Rockchip）位列第20名，芯原（Verisilcon）位列第21名，寒武纪（combricon）位列第23名，地平线机器人（Horizon Robotics）位列第24名。&lt;/p&gt;
-
-&lt;h2 id=&#34;地平线机器人&#34;&gt;地平线机器人&lt;/h2&gt;
-
-&lt;p&gt;地平线自动驾驶计算平台Matrix，以及征程2.0芯片。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzA5OTM0NjcxOQ==&amp;mid=2651494615&amp;idx=2&amp;sn=c452c03a83b9e3e0aefcf2840cf7c2d3&amp;chksm=8b7d88a7bc0a01b12182828d51e956f395c25c01fc3429e76ddf057ee07467e31270037d2df7&amp;mpshare=1&amp;scene=1&amp;srcid=0114xHqZSP8NKMI1RW08xfZ9#rd&#34; target=&#34;_blank&#34;&gt;用摄像头做 3D 点云，地平线发布众包高精地图采集方案&lt;/a&gt;&lt;/p&gt;
 </description>
       
     </item>
